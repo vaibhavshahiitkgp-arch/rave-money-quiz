@@ -1,16 +1,38 @@
-# React + Vite
+# RAVE Finance Labs — Money Money Quiz
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Mobile-first financial literacy quiz. Static React app on Netlify, with a
+Netlify Function proxying submissions to a Google Apps Script Web App that
+appends leads to a Google Sheet.
 
-Currently, two official plugins are available:
+## Status
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- English question bank: **placeholder content** (`src/data/questions.en.js`)
+  — pending the real 20-question bank from the owner.
+- Hindi / Gujarati: **not built yet**. Disabled on the language selector
+  (`src/data/languages.js`) until real translated content lands in
+  `questions.hi.js` / `questions.gu.js`, matching the same shape as the
+  English file.
+- Backend: Netlify Function scaffolded (`netlify/functions/submit.js`) plus
+  a Google Apps Script template (`apps-script/Code.gs`) — needs a real
+  Google Sheet + deployed Web App URL to go live (see that file's header
+  comment for the one-time setup steps).
 
-## React Compiler
+## Local development
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+npm run dev
+```
 
-## Expanding the Oxlint configuration
+## Deploying to Netlify
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+1. Push this repo to GitHub (or connect the local folder directly via Netlify CLI).
+2. In Netlify: New site from Git, pick this repo. Build command `npm run build`, publish directory `dist` (already set in `netlify.toml`).
+3. Set the `GOOGLE_SHEETS_WEBAPP_URL` environment variable in Site settings once the Apps Script Web App (see `apps-script/Code.gs`) is deployed.
+
+## Replacing placeholder content
+
+Swap the arrays in `src/data/questions.en.js` (and later `.hi.js` / `.gu.js`)
+with the real question banks — same shape, same fixed order (do not
+shuffle). Once a language's file has real content, flip its `available`
+flag to `true` in `src/data/languages.js`.
