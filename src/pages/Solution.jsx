@@ -1,6 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Brand from "../components/Brand";
 import { useQuiz } from "../state/QuizContext";
 
 const LETTERS = ["A", "B", "C", "D"];
@@ -8,6 +7,7 @@ const LETTERS = ["A", "B", "C", "D"];
 export default function Solution() {
   const navigate = useNavigate();
   const { submitted, detailedUnlocked, questions, answers } = useQuiz();
+  const [expandedId, setExpandedId] = useState(null);
 
   useEffect(() => {
     if (!submitted) navigate("/", { replace: true });
@@ -17,58 +17,50 @@ export default function Solution() {
   if (!detailedUnlocked) return null;
 
   return (
-    <div className="screen">
-      <Brand />
-      <h2>Detailed solution</h2>
+    <div className="card-shell">
+      <div style={{ padding: "20px 22px 12px", display: "flex", flexDirection: "column", gap: 6 }}>
+        <button className="back-link" onClick={() => navigate("/options")}>
+          &lsaquo; Back
+        </button>
+        <div style={{ fontFamily: "Fredoka, sans-serif", fontSize: 19, fontWeight: 700, color: "var(--ink)" }}>Your Detailed Solution</div>
+        <div style={{ fontSize: 12.5, color: "var(--muted-soft)" }}>Tap a question to see the explanation.</div>
+      </div>
 
-      <div>
+      <div style={{ flex: 1, overflowY: "auto", padding: "6px 22px 22px", display: "flex", flexDirection: "column", gap: 8 }}>
         {questions.map((q, i) => {
           const chosen = answers[q.id];
           const isCorrect = chosen === q.correctIndex;
+          const expanded = expandedId === q.id;
+          const badgeClass = chosen === undefined ? "solution-badge--unanswered" : isCorrect ? "solution-badge--correct" : "solution-badge--incorrect";
+          const badgeChar = chosen === undefined ? "–" : isCorrect ? "✓" : "✗";
+
           return (
-            <div className="solution-item" key={q.id}>
-              <span className="tag">{q.topic}</span>
-              <p className="question-text" style={{ marginTop: 8 }}>
-                {i + 1}. {q.text}
-              </p>
-
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                {q.options.map((opt, oi) => {
-                  let cls = "option";
-                  if (oi === q.correctIndex) cls += " option--correct";
-                  else if (oi === chosen) cls += " option--incorrect";
-                  return (
-                    <div className={cls} key={oi}>
-                      <span className="option__letter">{LETTERS[oi]}</span>
-                      <span className="option__text">{opt}</span>
+            <div className="solution-card" key={q.id}>
+              <button className="solution-row-header" onClick={() => setExpandedId(expanded ? null : q.id)}>
+                <span className={`solution-badge ${badgeClass}`}>{badgeChar}</span>
+                <span className="solution-row-label">Question {i + 1}</span>
+                <span className="solution-chevron">{expanded ? "⌃" : "⌄"}</span>
+              </button>
+              {expanded && (
+                <div className="solution-detail">
+                  <div className="solution-detail__q">{q.text}</div>
+                  <div className="solution-detail__answer">
+                    Your answer:{" "}
+                    <b style={{ color: "var(--ink)" }}>
+                      {chosen === undefined ? "Not answered" : `${LETTERS[chosen]}. ${q.options[chosen]}`}
+                    </b>
+                  </div>
+                  {!isCorrect && (
+                    <div className="solution-detail__answer">
+                      Correct answer: <b style={{ color: "var(--green)" }}>{`${LETTERS[q.correctIndex]}. ${q.options[q.correctIndex]}`}</b>
                     </div>
-                  );
-                })}
-              </div>
-
-              <div style={{ marginTop: 8 }}>
-                {chosen === undefined ? (
-                  <span className="result-icon result-icon--incorrect">NOT ANSWERED</span>
-                ) : isCorrect ? (
-                  <span className="result-icon result-icon--correct">CORRECT</span>
-                ) : (
-                  <span className="result-icon result-icon--incorrect">INCORRECT</span>
-                )}
-              </div>
-
-              <div className="explanation-box">{q.explanation}</div>
+                  )}
+                  <div className="solution-explanation">{q.explanation}</div>
+                </div>
+              )}
             </div>
           );
         })}
-      </div>
-
-      <div className="btn-row">
-        <button className="btn btn--secondary" onClick={() => navigate("/share")}>
-          Share your score
-        </button>
-        <button className="btn btn--primary" onClick={() => navigate("/course")}>
-          Explore our course
-        </button>
       </div>
     </div>
   );

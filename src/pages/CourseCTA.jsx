@@ -1,76 +1,51 @@
 import { useNavigate } from "react-router-dom";
-import Brand from "../components/Brand";
-import { useQuiz } from "../state/QuizContext";
-import { RAVE_EMAIL, buildShareEmailLink, buildWhatsAppLink } from "../utils/whatsapp";
+import { RAVE_EMAIL } from "../utils/whatsapp";
 
-// PLACEHOLDER curriculum detail — replace with RAVE Finance Labs' actual
-// "Investing as a Life Skill" course copy (a fuller version exists in
-// earlier project material and should be adapted here rather than
-// rewritten from scratch).
-const WEEKS = [
-  "Money mindset & goal-setting",
-  "Budgeting that actually sticks",
-  "Emergency funds & safe liquidity",
-  "Understanding credit & debt",
-  "Insurance: what you actually need",
-  "Tax basics for salaried & self-employed",
-  "Introduction to equity markets",
-  "Mutual funds & SIPs",
-  "Fixed income: bonds & deposits",
-  "Building a diversified portfolio",
-  "Retirement planning",
-  "Putting it all together: your financial plan",
+// PLACEHOLDER curriculum — matches the approved design prototype's placeholder
+// bullets verbatim. Swap for RAVE Finance Labs' real 12-week outline when
+// supplied (a fuller version exists in earlier project material).
+const BULLETS = [
+  "Weeks 1–3: Money mindset & budgeting foundations",
+  "Weeks 4–6: Saving, insurance & protecting what you build",
+  "Weeks 7–9: Stocks, mutual funds & how markets actually work",
+  "Weeks 10–12: Building your own long-term investing plan",
 ];
 
 export default function CourseCTA() {
   const navigate = useNavigate();
-  const { resetQuiz } = useQuiz();
 
-  function handleRetake() {
-    resetQuiz();
-    navigate("/");
+  function handleBack() {
+    navigate("/options");
   }
 
-  const enquiryMessage = "Hi RAVE Finance Labs, I'd like to know more about the Investing as a Life Skill course.";
-
   return (
-    <div className="screen">
-      <Brand />
-      <h2>Want to learn more about Investing and Finance?</h2>
-      <p>Learn from an expert. RAVE Finance Labs' flagship course — Investing as a Life Skill — is a 12-week program built to take you from money-curious to money-confident.</p>
-
-      <div className="card">
-        <ol style={{ margin: 0, paddingLeft: 20, color: "var(--text)" }}>
-          {WEEKS.map((w, i) => (
-            <li key={i} style={{ marginBottom: 8 }}>
-              {w}
-            </li>
-          ))}
-        </ol>
-      </div>
-
-      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-        <a
-          className="btn btn--primary"
-          href={buildWhatsAppLink(enquiryMessage)}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Enquire on WhatsApp
-        </a>
-        <a
-          className="btn btn--secondary"
-          href={buildShareEmailLink({ subject: "Investing as a Life Skill — enquiry", body: enquiryMessage })}
-        >
-          Enquire via {RAVE_EMAIL}
-        </a>
-      </div>
-
-      <div style={{ marginTop: "auto" }}>
-        <button className="btn btn--ghost" onClick={handleRetake}>
-          Retake the quiz
+    <div className="card-shell blob-bg blob-bg--b" style={{ padding: "30px 26px", gap: 28 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <button className="back-link" onClick={handleBack}>
+          &lsaquo; Back
         </button>
+        <div style={{ fontFamily: "Fredoka, sans-serif", fontSize: 19, fontWeight: 700, color: "var(--ink)", lineHeight: 1.4 }}>
+          Want to learn more about investing and finance?
+        </div>
+        <div style={{ fontSize: 14, color: "var(--ink)", fontWeight: 700 }}>Learn from an expert.</div>
+        <div style={{ background: "#fff", borderRadius: 16, padding: 16, boxShadow: "0 2px 8px rgba(0,0,0,.05)", display: "flex", flexDirection: "column", gap: 10 }}>
+          <div style={{ fontFamily: "Fredoka, sans-serif", fontWeight: 700, fontSize: 15, color: "var(--ink)" }}>Investing as a Life Skill</div>
+          <div style={{ fontSize: 12.5, color: "var(--muted-soft)" }}>A 12-week course by RAVE Finance Labs — placeholder curriculum below, swap for the real outline.</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 4 }}>
+            {BULLETS.map((b, i) => (
+              <div key={i} style={{ fontSize: 13, color: "oklch(35% 0.02 260)" }}>
+                • {b}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
+      <a
+        href={`mailto:${RAVE_EMAIL}?subject=Investing%20as%20a%20Life%20Skill`}
+        className="btn3d btn3d--green"
+      >
+        Know More
+      </a>
     </div>
   );
 }

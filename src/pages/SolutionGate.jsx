@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Brand from "../components/Brand";
 import { useQuiz } from "../state/QuizContext";
 import { getTier } from "../data/tiers";
 import { isValidIndianMobile, isValidName, normalizeIndianMobile } from "../utils/validate";
-import { buildLeadMessage, buildWhatsAppLink } from "../utils/whatsapp";
 import { submitLead } from "../utils/api";
 
 export default function SolutionGate() {
@@ -12,25 +10,27 @@ export default function SolutionGate() {
   const { submitted, questions, answers, score, total, language, unlockDetailed } = useQuiz();
   const [name, setName] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
-  const [touched, setTouched] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (!submitted) navigate("/", { replace: true });
   }, [submitted, navigate]);
 
-  const nameValid = isValidName(name);
-  const phoneValid = isValidIndianMobile(whatsapp);
-
   function handleSubmit(e) {
     e.preventDefault();
-    setTouched(true);
-    if (!nameValid || !phoneValid) return;
+    if (!isValidName(name)) {
+      setError("Please enter your name.");
+      return;
+    }
+    if (!isValidIndianMobile(whatsapp)) {
+      setError("Please enter a valid 10-digit mobile number.");
+      return;
+    }
+    setError("");
 
     const tier = getTier(score, total);
     const weakTopics = [
-      ...new Set(
-        questions.filter((q) => answers[q.id] !== q.correctIndex).map((q) => q.topic)
-      ),
+      ...new Set(questions.filter((q) => answers[q.id] !== q.correctIndex).map((q) => q.topic)),
     ];
     const contact = { name: name.trim(), whatsapp: normalizeIndianMobile(whatsapp) };
 
@@ -47,47 +47,34 @@ export default function SolutionGate() {
     });
 
     unlockDetailed(contact);
-
-    const message = buildLeadMessage({ name: contact.name, score, total, tierName: tier.name, weakTopics });
-    window.open(buildWhatsAppLink(message), "_blank", "noopener,noreferrer");
-
-    navigate("/solution");
+    navigate("/whatsapp-confirm");
   }
 
   return (
-    <div className="screen">
-      <Brand />
-      <h2>Get your detailed solution</h2>
-      <p>
-        See what you got right, what to review, and a short explanation for every question —
-        share your name and WhatsApp number and we&apos;ll send it your way.
-      </p>
-
-      <form className="card" onSubmit={handleSubmit}>
-        <div className="field">
-          <label htmlFor="name">Name</label>
-          <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" />
-          {touched && !nameValid && <div className="error-text">Please enter your name.</div>}
-        </div>
-        <div className="field">
-          <label htmlFor="whatsapp">WhatsApp number</label>
-          <input
-            id="whatsapp"
-            type="tel"
-            value={whatsapp}
-            onChange={(e) => setWhatsapp(e.target.value)}
-            placeholder="10-digit mobile number"
-          />
-          {touched && !phoneValid && <div className="error-text">Please enter a valid Indian mobile number.</div>}
-        </div>
-        <button className="btn btn--primary" type="submit">
-          Get my detailed solution
+    <div className="card-shell blob-bg blob-bg--a" style={{ padding: "30px 26px", gap: 28 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+        <button className="back-link" onClick={() => navigate("/options")}>
+          &lsaquo; Back
         </button>
-      </form>
-
-      <button className="btn btn--ghost" onClick={() => navigate("/score")}>
-        Back to score
-      </button>
+        <div style={{ fontFamily: "Fredoka, sans-serif", fontSize: 20, fontWeight: 700, color: "var(--ink)" }}>Just two things</div>
+        <p style={{ fontSize: 13.5, color: "var(--muted)", lineHeight: 1.5 }}>
+          We&apos;ll use this only to send you the solution and occasional updates from RAVE Finance Labs.
+        </p>
+        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            <label className="field-label" htmlFor="name">Your name</label>
+            <input id="name" className="field-input" type="text" placeholder="e.g. Priya Shah" value={name} onChange={(e) => setName(e.target.value)} />
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            <label className="field-label" htmlFor="whatsapp">WhatsApp number</label>
+            <input id="whatsapp" className="field-input" type="tel" placeholder="10-digit mobile number" value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} />
+          </div>
+          {error && <div className="field-error">{error}</div>}
+          <button className="btn3d btn3d--green" type="submit">
+            Unlock My Solution
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

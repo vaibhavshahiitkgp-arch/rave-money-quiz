@@ -2,9 +2,8 @@
  * RAVE Money Money Quiz — Google Apps Script Web App backend.
  *
  * SETUP (one-time, no coding needed beyond pasting this file):
- * 1. Create a new Google Sheet (e.g. "Money Quiz Leads"). Add a header row
- *    to the first sheet/tab: Timestamp | Name | WhatsApp | Language | Score
- *    | Total | Tier | Weak Topics | Answers JSON
+ * 1. Create a new Google Sheet (e.g. "Money Quiz Leads"). Leave it empty —
+ *    the header row is created automatically on the first submission.
  * 2. In the Sheet, go to Extensions > Apps Script.
  * 3. Delete any starter code and paste this entire file in.
  * 4. Click Deploy > New deployment > select type "Web app".
@@ -20,8 +19,25 @@
  * The Web App URL stays the same, so no Netlify change is needed.
  */
 
+const HEADERS = [
+  "Timestamp",
+  "Name",
+  "WhatsApp",
+  "Language",
+  "Score",
+  "Total",
+  "Tier",
+  "Weak Topics",
+  "Answers JSON",
+];
+
 function doPost(e) {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(HEADERS);
+    sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight("bold");
+  }
+
   const data = JSON.parse(e.postData.contents);
 
   sheet.appendRow([

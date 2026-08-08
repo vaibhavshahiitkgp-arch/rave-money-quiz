@@ -4,17 +4,14 @@ import { normalizeIndianMobile } from "./validate";
 export const RAVE_WHATSAPP_NUMBER = "919933883570";
 export const RAVE_EMAIL = "ravefinancelabs@gmail.com";
 
-export function buildLeadMessage({ name, score, total, tierName, weakTopics }) {
-  const lines = [
-    `Hi RAVE Finance Labs, I just took the Money Money Quiz!`,
-    `Name: ${name}`,
-    `Score: ${score}/${total} (${tierName})`,
-  ];
-  if (weakTopics?.length) {
-    lines.push(`Topics I'd like to understand better: ${weakTopics.join(", ")}`);
-  }
-  lines.push(`Please send me the detailed solutions.`);
-  return lines.join("\n");
+// Verbatim from the approved design prototype's confirm-via-WhatsApp link.
+export function buildConfirmMessage({ name, score, total, tierName }) {
+  return `Hi RAVE Finance Labs, I'm ${name} and I just scored ${score}/${total} (${tierName}) on the Money Money Quiz. Send me the detailed solution!`;
+}
+
+// Verbatim from the prototype's "Share My Score" text.
+export function buildShareMessage({ score, total, tierName }) {
+  return `I scored ${score}/${total} on RAVE Finance Labs' Money Money Quiz — ${tierName}. Think you'd do better?`;
 }
 
 export function buildWhatsAppLink(message, toNumber = RAVE_WHATSAPP_NUMBER) {
@@ -24,10 +21,6 @@ export function buildWhatsAppLink(message, toNumber = RAVE_WHATSAPP_NUMBER) {
 export function buildShareWhatsAppLink(message) {
   // No fixed recipient — opens WhatsApp's own share/contact picker.
   return `https://wa.me/?text=${encodeURIComponent(message)}`;
-}
-
-export function buildShareEmailLink({ subject, body }) {
-  return `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 export { normalizeIndianMobile };

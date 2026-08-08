@@ -5,7 +5,9 @@ import Quiz from "./pages/Quiz";
 import Review from "./pages/Review";
 import PostSubmit from "./pages/PostSubmit";
 import Score from "./pages/Score";
+import Options from "./pages/Options";
 import SolutionGate from "./pages/SolutionGate";
+import WhatsAppConfirm from "./pages/WhatsAppConfirm";
 import Solution from "./pages/Solution";
 import Share from "./pages/Share";
 import CourseCTA from "./pages/CourseCTA";
@@ -19,7 +21,9 @@ export default function App() {
       <Route path="/review" element={<Review />} />
       <Route path="/post-submit" element={<PostSubmit />} />
       <Route path="/score" element={<Score />} />
+      <Route path="/options" element={<Options />} />
       <Route path="/solution-gate" element={<SolutionGate />} />
+      <Route path="/whatsapp-confirm" element={<WhatsAppConfirm />} />
       <Route path="/solution" element={<Solution />} />
       <Route path="/share" element={<Share />} />
       <Route path="/course" element={<CourseCTA />} />

@@ -1,45 +1,61 @@
 import { useNavigate } from "react-router-dom";
-import Brand from "../components/Brand";
+import Mascot from "../components/Mascot";
 import { LANGUAGES } from "../data/languages";
 import { useQuiz } from "../state/QuizContext";
 
 export default function Landing() {
   const navigate = useNavigate();
-  const { language, setLanguage } = useQuiz();
+  const { language, setLanguage, total } = useQuiz();
 
   return (
-    <div className="screen center">
-      <Brand />
+    <div className="card-shell dot-grid" style={{ padding: "36px 26px 30px", minHeight: 620, gap: 34 }}>
+      <div className="float-shape" style={{ top: 26, left: 20, width: 34, height: 34, borderRadius: "50%", background: "oklch(45% 0.1 150 / 0.13)", animation: "floatSlow 5s ease-in-out infinite" }} />
+      <div className="float-shape" style={{ top: 70, right: 24, width: 22, height: 22, borderRadius: 6, transform: "rotate(20deg)", background: "oklch(58% 0.14 45 / 0.16)", animation: "floatSlow2 4.2s ease-in-out infinite" }} />
+      <div className="float-shape" style={{ bottom: 150, left: 30, width: 18, height: 18, transform: "rotate(45deg)", background: "oklch(72% 0.15 85 / 0.3)", animation: "floatSlow2 6s ease-in-out infinite" }} />
+      <div className="float-shape" style={{ bottom: 210, right: 18, width: 26, height: 26, borderRadius: "50%", border: "3px solid oklch(45% 0.1 150 / 0.18)", animation: "spin20 14s linear infinite" }} />
+      <div className="float-shape" style={{ top: 190, left: "50%", width: 220, height: 220, transform: "translateX(-50%)", borderRadius: "50%", background: "radial-gradient(oklch(85% 0.09 85 / 0.5), transparent 70%)" }} />
 
-      <div style={{ marginTop: 12 }}>
-        <h1>The Money Money Quiz!!</h1>
-        <p>
-          How well do you really know the things every adult should already understand about
-          their own money? Let&apos;s find out.
-        </p>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, position: "relative", zIndex: 1 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <div style={{ width: 22, height: 26, background: "var(--green)", clipPath: "polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%)", display: "flex", alignItems: "flex-start", justifyContent: "center", paddingTop: 4, flexShrink: 0 }}>
+            <div style={{ color: "#fff", fontFamily: "Fredoka, sans-serif", fontWeight: 700, fontSize: 11 }}>R</div>
+          </div>
+          <div style={{ fontSize: 13, letterSpacing: 1, color: "var(--ink)", fontWeight: 800 }}>RAVE FINANCE LABS</div>
+        </div>
+        <div style={{ fontSize: 10.5, color: "var(--muted-soft)", fontWeight: 600 }}>from the makers of Apna Sapna Money Money</div>
       </div>
 
-      <div className="card">
-        <label style={{ marginBottom: 10 }}>Choose your language</label>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          {LANGUAGES.map((lang) => (
-            <button
-              key={lang.code}
-              className={`btn ${language === lang.code ? "btn--primary" : "btn--secondary"}`}
-              onClick={() => setLanguage(lang.code)}
-              disabled={!lang.available}
-            >
-              {lang.label}
-              {!lang.available && " (coming soon)"}
-            </button>
-          ))}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, position: "relative", zIndex: 1 }}>
+        <div className="anim-popIn" style={{ fontFamily: "Fredoka, sans-serif", fontSize: 27, fontWeight: 700, color: "var(--ink)", lineHeight: 1.2, textAlign: "center" }}>
+          The <span style={{ color: "oklch(45% 0.13 150)" }}>&#8220;Money Money&#8221;</span> Quiz
+        </div>
+        <Mascot size={82} animate style={{ filter: "drop-shadow(0 10px 8px rgba(0,0,0,.15))" }} />
+        <div className="anim-slideUp" style={{ animationDelay: "0.15s", fontWeight: 700, fontSize: 14, color: "var(--muted)", maxWidth: 270, lineHeight: 1.5, textAlign: "center" }}>
+          Not a test. No score shared. Just a mirror on what you already know about money.
         </div>
       </div>
 
-      <div style={{ marginTop: "auto" }}>
-        <button className="btn btn--primary" onClick={() => navigate("/instructions")}>
-          Start
+      <div className="anim-slideUp" style={{ animationDelay: "0.25s", display: "flex", flexDirection: "column", alignItems: "center", gap: 18, width: "100%", position: "relative", zIndex: 1 }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 9 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: "var(--muted-soft)", letterSpacing: 0.4, textTransform: "uppercase" }}>Choose your language</div>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
+            {LANGUAGES.map((lang) => (
+              <button
+                key={lang.code}
+                className={`lang-pill ${language === lang.code ? "lang-pill--active" : ""} ${!lang.available ? "lang-pill--disabled" : ""}`}
+                onClick={() => lang.available && setLanguage(lang.code)}
+                disabled={!lang.available}
+              >
+                {lang.label}
+                {!lang.available && " (soon)"}
+              </button>
+            ))}
+          </div>
+        </div>
+        <button className="btn3d btn3d--green" style={{ maxWidth: 280 }} onClick={() => navigate("/instructions")}>
+          START
         </button>
+        <div style={{ fontSize: 12, color: "var(--muted-soft)", fontWeight: 600 }}>{total} questions • ~7 min</div>
       </div>
     </div>
   );
