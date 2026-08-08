@@ -1,5 +1,5 @@
-// Real, finalized English question bank — RAVE_Money_Quiz_English.docx +
-// RAVE_Money_Quiz_Answer_Key_Private.docx, supplied 2026-08-08.
+// Real, finalized English question bank — corrected RAVE_Money_Quiz_English.docx,
+// supplied 2026-08-08 (corrected version 2026-08-09).
 // Fixed order — do not shuffle.
 
 export const questionsEN = [
@@ -47,10 +47,10 @@ export const questionsEN = [
     topic: "Diversification",
     text: "Your neighbour tells you: “I never buy mutual funds!! Why pay a fund manager to pick stocks when I can just pick 2-3 good stocks myself and save the fee?” What's the one advantage that the neighbour loses but a mutual fund investor gets automatically?",
     options: [
-      "Spreading risk across many companies",
-      "Guaranteed higher returns",
+      "Advantage of Spreading risk across many companies",
+      "Advantage of Guaranteed higher returns",
       "Instant access to cash and more control over where the money is invested",
-      "Full protection from losses",
+      "Advantage of Full protection from losses",
     ],
     correctIndex: 0,
     explanation: "By picking just 2-3 stocks himself, the neighbour is concentrating all his risk into a handful of companies. A mutual fund automatically spreads money across many companies at once, so if one or two do poorly, the rest can cushion the impact — that spreading of risk is the one thing he loses by going solo.",
@@ -58,7 +58,7 @@ export const questionsEN = [
   {
     id: 5,
     topic: "Investment Horizon",
-    text: "Kavita is getting married in a year and she needs her money exactly at that time. She's considering parking her money in a mutual fund whose average annual return has been 15% over the last 10 years. Is this a good investment for her right now?",
+    text: "Kavita is getting married in a year and she needs her money exactly at that time. She's considering parking her money in an equity mutual fund whose average annual return has been 15% over the last 10 years. Is this a good investment for her right now?",
     options: [
       "Yes — a 15% average annual return is a strong track record for 10 years",
       "Yes — past average performance guarantees a similar return this year too",
@@ -126,8 +126,8 @@ export const questionsEN = [
     text: "Your friend says he has a net worth of ₹50 lakh and is well-diversified. He lists: stocks worth ₹6 lakh, bonds worth ₹4 lakh, mutual funds worth ₹5 lakh, and a godown worth ₹30 lakh. He also owns a car worth ₹5 lakh, on which he paid ₹1 lakh as down payment with the rest on loan. What is his actual net worth?",
     options: [
       "₹50 lakh – Exactly what he is calculating",
-      "₹46 lakh – Liabilities are to be subtracted from the assets",
-      "₹42 lakh – Loan amount of 4 lakh must be reduced from 46 lakhs",
+      "₹46 lakh",
+      "₹42 lakh",
       "₹20 lakh – Godown is not an asset and must not be calculated",
     ],
     correctIndex: 1,
