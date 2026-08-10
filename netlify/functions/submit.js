@@ -29,13 +29,10 @@ export default async (req) => {
     });
   }
 
-  const { name, whatsapp, score, total } = payload ?? {};
-  if (typeof name !== "string" || !name.trim() || typeof whatsapp !== "string" || !whatsapp.trim()) {
-    return new Response(JSON.stringify({ ok: false, error: "missing name or whatsapp" }), {
-      status: 400,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
+  // name/whatsapp are optional — anonymous score-only submissions (logged
+  // the moment someone sees their score, before any contact info is given)
+  // are a legitimate case alongside full leads from the unlock flow.
+  const { score, total } = payload ?? {};
   if (typeof score !== "number" || typeof total !== "number") {
     return new Response(JSON.stringify({ ok: false, error: "missing score" }), {
       status: 400,

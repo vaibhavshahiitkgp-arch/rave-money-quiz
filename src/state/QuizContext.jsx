@@ -10,6 +10,7 @@ const initialState = {
   submitted: false,
   contact: null, // { name, whatsapp }
   detailedUnlocked: false,
+  scoreLogged: false,
 };
 
 function loadState() {
@@ -50,6 +51,10 @@ export function QuizProvider({ children }) {
     setState((s) => ({ ...s, contact, detailedUnlocked: true }));
   }, []);
 
+  const markScoreLogged = useCallback(() => {
+    setState((s) => ({ ...s, scoreLogged: true }));
+  }, []);
+
   const resetQuiz = useCallback(() => {
     setState((s) => ({ ...initialState, language: s.language }));
   }, []);
@@ -66,16 +71,27 @@ export function QuizProvider({ children }) {
     [questions, state.answers]
   );
 
+  const weakTopics = useMemo(
+    () => [
+      ...new Set(
+        questions.filter((q) => state.answers[q.id] !== q.correctIndex).map((q) => q.topic)
+      ),
+    ],
+    [questions, state.answers]
+  );
+
   const value = {
     ...state,
     questions,
     score,
     total: questions.length,
     unansweredIds,
+    weakTopics,
     setLanguage,
     setAnswer,
     submitQuiz,
     unlockDetailed,
+    markScoreLogged,
     resetQuiz,
   };
 

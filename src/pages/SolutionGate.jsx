@@ -7,7 +7,7 @@ import { submitLead } from "../utils/api";
 
 export default function SolutionGate() {
   const navigate = useNavigate();
-  const { submitted, questions, answers, score, total, language, unlockDetailed } = useQuiz();
+  const { submitted, answers, score, total, language, weakTopics, unlockDetailed } = useQuiz();
   const [name, setName] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [error, setError] = useState("");
@@ -29,9 +29,6 @@ export default function SolutionGate() {
     setError("");
 
     const tier = getTier(score, total);
-    const weakTopics = [
-      ...new Set(questions.filter((q) => answers[q.id] !== q.correctIndex).map((q) => q.topic)),
-    ];
     const contact = { name: name.trim(), whatsapp: normalizeIndianMobile(whatsapp) };
 
     submitLead({
