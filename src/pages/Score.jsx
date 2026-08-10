@@ -17,7 +17,7 @@ const SHAPES = [
 
 export default function Score() {
   const navigate = useNavigate();
-  const { submitted, score, total, language, answers, weakTopics, scoreLogged, markScoreLogged } = useQuiz();
+  const { submitted, score, total, language, answers, weakTopics, scoreLogged, markScoreLogged, sessionId } = useQuiz();
   const loggingRef = useRef(false);
 
   useEffect(() => {
@@ -34,6 +34,7 @@ export default function Score() {
     loggingRef.current = true;
     const tierName = getTier(score, total).name;
     submitLead({
+      sessionId,
       name: "",
       whatsapp: "",
       language,

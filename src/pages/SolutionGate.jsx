@@ -7,7 +7,7 @@ import { submitLead } from "../utils/api";
 
 export default function SolutionGate() {
   const navigate = useNavigate();
-  const { submitted, answers, score, total, language, weakTopics, unlockDetailed } = useQuiz();
+  const { submitted, answers, score, total, language, weakTopics, unlockDetailed, sessionId } = useQuiz();
   const [name, setName] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [error, setError] = useState("");
@@ -32,6 +32,7 @@ export default function SolutionGate() {
     const contact = { name: name.trim(), whatsapp: normalizeIndianMobile(whatsapp) };
 
     submitLead({
+      sessionId,
       name: contact.name,
       whatsapp: contact.whatsapp,
       language,

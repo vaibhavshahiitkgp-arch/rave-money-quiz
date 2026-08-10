@@ -4,23 +4,34 @@ import { getQuestions } from "../data/index";
 
 const STORAGE_KEY = "rave-money-quiz-state-v1";
 
-const initialState = {
-  language: DEFAULT_LANGUAGE,
-  answers: {}, // { [questionId]: optionIndex }
-  submitted: false,
-  contact: null, // { name, whatsapp }
-  detailedUnlocked: false,
-  scoreLogged: false,
-};
+function generateSessionId() {
+  if (typeof crypto !== "undefined" && crypto.randomUUID) return crypto.randomUUID();
+  return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
+
+// A fresh sessionId per call — identifies one quiz attempt, so a later
+// "unlock" submission can be matched back to the earlier anonymous
+// score-log row and update it in place instead of creating a duplicate.
+function createInitialState() {
+  return {
+    language: DEFAULT_LANGUAGE,
+    answers: {}, // { [questionId]: optionIndex }
+    submitted: false,
+    contact: null, // { name, whatsapp }
+    detailedUnlocked: false,
+    scoreLogged: false,
+    sessionId: generateSessionId(),
+  };
+}
 
 function loadState() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return initialState;
+    if (!raw) return createInitialState();
     const parsed = JSON.parse(raw);
-    return { ...initialState, ...parsed };
+    return { ...createInitialState(), ...parsed };
   } catch {
-    return initialState;
+    return createInitialState();
   }
 }
 
@@ -56,7 +67,7 @@ export function QuizProvider({ children }) {
   }, []);
 
   const resetQuiz = useCallback(() => {
-    setState((s) => ({ ...initialState, language: s.language }));
+    setState((s) => ({ ...createInitialState(), language: s.language }));
   }, []);
 
   const score = useMemo(() => {
