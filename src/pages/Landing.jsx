@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Mascot from "../components/Mascot";
 import { LANGUAGES } from "../data/languages";
@@ -6,8 +7,17 @@ import { useQuiz } from "../state/QuizContext";
 
 export default function Landing() {
   const navigate = useNavigate();
-  const { language, setLanguage, total } = useQuiz();
+  const { language, setLanguage, total, submitted } = useQuiz();
   const t = getStrings(language);
+
+  // Returning visitor who already finished — skip straight to their score
+  // instead of the language picker again. Retaking is a deliberate action
+  // (see Score screen), not something a re-visit should reset silently.
+  useEffect(() => {
+    if (submitted) navigate("/score", { replace: true });
+  }, [submitted, navigate]);
+
+  if (submitted) return null;
 
   return (
     <div className="card-shell dot-grid" style={{ padding: "36px 26px 30px", minHeight: 620, gap: 34 }}>

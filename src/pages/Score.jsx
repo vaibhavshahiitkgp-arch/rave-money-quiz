@@ -18,7 +18,7 @@ const SHAPES = [
 
 export default function Score() {
   const navigate = useNavigate();
-  const { submitted, score, total, language, answers, weakTopics, scoreLogged, markScoreLogged, sessionId } = useQuiz();
+  const { submitted, score, total, language, answers, weakTopics, scoreLogged, markScoreLogged, sessionId, resetQuiz } = useQuiz();
   const loggingRef = useRef(false);
   const t = getStrings(language);
 
@@ -56,6 +56,11 @@ export default function Score() {
   const tier = getTier(score, total);
   const pct = Math.round((score / total) * 100);
   const mouth = mascotMouth(tier.name);
+
+  function handleRetake() {
+    resetQuiz();
+    navigate("/");
+  }
 
   return (
     <div
@@ -130,6 +135,21 @@ export default function Score() {
       <button className="btn3d btn3d--green" style={{ position: "relative", zIndex: 1 }} onClick={() => navigate("/solution-gate")}>
         {t.score.continue}
       </button>
+
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, position: "relative", zIndex: 1 }}>
+        <button
+          onClick={() => navigate("/course")}
+          style={{ background: "none", border: "none", cursor: "pointer", fontSize: 12.5, fontWeight: 700, color: "oklch(35% 0.06 150)", textDecoration: "underline" }}
+        >
+          {t.score.courseTeaser}
+        </button>
+        <button
+          onClick={handleRetake}
+          style={{ background: "none", border: "none", cursor: "pointer", fontSize: 11.5, color: "oklch(45% 0.04 150)" }}
+        >
+          {t.score.retake}
+        </button>
+      </div>
     </div>
   );
 }

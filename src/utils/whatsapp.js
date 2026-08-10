@@ -14,6 +14,13 @@ export function buildShareMessage({ score, total, tierName }) {
   return `I scored ${score}/${total} on RAVE Finance Labs' Money Money Quiz — ${tierName}. Think you'd do better?`;
 }
 
+export function buildCourseEnquiryMessage({ name, score, total, weakTopicsJoined }) {
+  const who = name ? `I'm ${name} and I` : "I";
+  const scoreLine = typeof score === "number" ? ` I scored ${score}/${total} on the Money Money Quiz.` : "";
+  const topicsLine = weakTopicsJoined ? ` I'd like to get better at ${weakTopicsJoined}.` : "";
+  return `Hi RAVE Finance Labs, ${who} took the Money Money Quiz and I'm interested in Investing as a Life Skill.${scoreLine}${topicsLine}`;
+}
+
 export function buildWhatsAppLink(message, toNumber = RAVE_WHATSAPP_NUMBER) {
   return `https://wa.me/${toNumber}?text=${encodeURIComponent(message)}`;
 }

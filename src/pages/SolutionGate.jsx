@@ -47,7 +47,7 @@ export default function SolutionGate() {
     });
 
     unlockDetailed(contact);
-    navigate("/whatsapp-confirm");
+    navigate("/solution");
   }
 
   return (

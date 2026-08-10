@@ -55,6 +55,8 @@ export const STRINGS = {
     score: {
       yourResult: "Your Result",
       continue: "Continue",
+      courseTeaser: "Want a plan to actually improve? Explore our course →",
+      retake: "Retake the quiz",
     },
     solutionGate: {
       title: "Get your results",
@@ -67,12 +69,6 @@ export const STRINGS = {
       errorName: "Please enter your name.",
       errorPhone: "Please enter a valid 10-digit mobile number.",
       back: "‹ Back",
-    },
-    whatsappConfirm: {
-      title: "One tap to confirm",
-      body: "Tap below to send yourself a quick WhatsApp message — that's how we confirm it's really you.",
-      confirmBtn: "Confirm via WhatsApp",
-      continueBtn: "Continue to My Results",
     },
     solution: {
       title: "Your Detailed Solution",
@@ -97,13 +93,16 @@ export const STRINGS = {
       title: "Want to learn more about investing and finance?",
       subtitle: "Learn from an expert.",
       courseDesc: "A 12-week course by RAVE Finance Labs.",
+      personalizedWithTopics: (topics) => `Based on your quiz, ${topics} could use a closer look — this course covers exactly that, step by step.`,
+      personalizedPerfect: "You handled everything we asked — this course goes even deeper into building real, lasting wealth.",
       bullets: [
         "Weeks 1–3: Money mindset & budgeting foundations",
         "Weeks 4–6: Saving, insurance & protecting what you build",
         "Weeks 7–9: Stocks, mutual funds & how markets actually work",
         "Weeks 10–12: Building your own long-term investing plan",
       ],
-      knowMore: "Know More",
+      enquireWhatsapp: "Enquire on WhatsApp",
+      enquireEmail: "Enquire via Email",
       back: "‹ Back",
     },
   },
@@ -153,6 +152,8 @@ export const STRINGS = {
     score: {
       yourResult: "आपका परिणाम",
       continue: "आगे बढ़ें",
+      courseTeaser: "सुधार की सही योजना चाहिए? हमारा कोर्स देखें →",
+      retake: "क्विज़ फिर से लें",
     },
     solutionGate: {
       title: "अपना परिणाम पाएं",
@@ -165,12 +166,6 @@ export const STRINGS = {
       errorName: "कृपया अपना नाम लिखें।",
       errorPhone: "कृपया सही 10 अंकों का मोबाइल नंबर डालें।",
       back: "‹ पीछे",
-    },
-    whatsappConfirm: {
-      title: "एक टैप में पुष्टि करें",
-      body: "नीचे टैप करके खुद को एक छोटा-सा व्हाट्सएप मैसेज भेजें — इसी तरह हम पक्का करते हैं कि यह सच में आप ही हैं।",
-      confirmBtn: "व्हाट्सएप से पुष्टि करें",
-      continueBtn: "मेरे परिणाम पर जाएं",
     },
     solution: {
       title: "आपका पूरा समाधान",
@@ -195,13 +190,16 @@ export const STRINGS = {
       title: "निवेश और पैसों के बारे में और जानना चाहते हैं?",
       subtitle: "एक विशेषज्ञ से सीखिए।",
       courseDesc: "RAVE Finance Labs का 12-हफ्ते का कोर्स।",
+      personalizedWithTopics: (topics) => `आपके क्विज़ के हिसाब से, ${topics} पर थोड़ा और ध्यान देना अच्छा रहेगा — यह कोर्स ठीक इसी को कदम-दर-कदम सिखाता है।`,
+      personalizedPerfect: "आपने सब कुछ बखूबी संभाला — यह कोर्स असली और टिकाऊ संपत्ति बनाने में और भी गहराई से मदद करता है।",
       bullets: [
         "सप्ताह 1–3: पैसों को लेकर सोच और बजट की बुनियाद",
         "सप्ताह 4–6: बचत, बीमा और जो बनाया है उसकी सुरक्षा",
         "सप्ताह 7–9: शेयर, म्यूचुअल फंड और बाज़ार असल में कैसे काम करता है",
         "सप्ताह 10–12: अपनी खुद की लंबी अवधि की निवेश योजना बनाना",
       ],
-      knowMore: "और जानें",
+      enquireWhatsapp: "व्हाट्सएप पर पूछताछ करें",
+      enquireEmail: "ईमेल से पूछताछ करें",
       back: "‹ पीछे",
     },
   },
@@ -251,6 +249,8 @@ export const STRINGS = {
     score: {
       yourResult: "તમારું પરિણામ",
       continue: "આગળ વધો",
+      courseTeaser: "સુધારાની ખરી યોજના જોઈએ? અમારો કોર્સ જુઓ →",
+      retake: "ક્વિઝ ફરીથી લો",
     },
     solutionGate: {
       title: "તમારું પરિણામ મેળવો",
@@ -263,12 +263,6 @@ export const STRINGS = {
       errorName: "કૃપા કરી તમારું નામ લખો.",
       errorPhone: "કૃપા કરી માન્ય 10 અંકનો મોબાઇલ નંબર નાખો.",
       back: "‹ પાછળ",
-    },
-    whatsappConfirm: {
-      title: "એક ટેપમાં પુષ્ટિ કરો",
-      body: "નીચે ટેપ કરીને તમારી જાતને એક નાનો વોટ્સએપ મેસેજ મોકલો — આ રીતે અમે ખાતરી કરીએ છીએ કે આ ખરેખર તમે જ છો.",
-      confirmBtn: "વોટ્સએપ દ્વારા પુષ્ટિ કરો",
-      continueBtn: "મારા પરિણામ પર જાઓ",
     },
     solution: {
       title: "તમારો સંપૂર્ણ ઉકેલ",
@@ -293,13 +287,16 @@ export const STRINGS = {
       title: "રોકાણ અને પૈસા વિશે વધુ જાણવા માંગો છો?",
       subtitle: "એક નિષ્ણાત પાસેથી શીખો.",
       courseDesc: "RAVE Finance Labsનો 12-અઠવાડિયાનો કોર્સ.",
+      personalizedWithTopics: (topics) => `તમારા ક્વિઝ પ્રમાણે, ${topics} પર થોડું વધારે ધ્યાન આપવું સારું રહેશે — આ કોર્સ બરાબર આ જ વસ્તુ પગલે-પગલે શીખવે છે.`,
+      personalizedPerfect: "તમે બધું જ સરસ રીતે સંભાળ્યું — આ કોર્સ ખરી અને ટકાઉ સંપત્તિ બનાવવામાં હજુ વધારે ઊંડાણથી મદદ કરે છે.",
       bullets: [
         "અઠવાડિયું 1–3: પૈસા વિશેની વિચારસરણી અને બજેટનો પાયો",
         "અઠવાડિયું 4–6: બચત, વીમો અને તમે જે બનાવ્યું છે તેનું રક્ષણ",
         "અઠવાડિયું 7–9: શેર, મ્યુચ્યુઅલ ફંડ અને બજાર ખરેખર કેવી રીતે કામ કરે છે",
         "અઠવાડિયું 10–12: તમારી પોતાની લાંબા ગાળાની રોકાણ યોજના બનાવવી",
       ],
-      knowMore: "વધુ જાણો",
+      enquireWhatsapp: "વોટ્સએપ પર પૂછપરછ કરો",
+      enquireEmail: "ઈમેલથી પૂછપરછ કરો",
       back: "‹ પાછળ",
     },
   },

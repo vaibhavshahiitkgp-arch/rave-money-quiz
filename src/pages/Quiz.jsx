@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getStrings } from "../data/strings";
 import { useQuiz } from "../state/QuizContext";
@@ -10,6 +10,7 @@ export default function Quiz() {
   const location = useLocation();
   const { questions, total, answers, setAnswer, language } = useQuiz();
   const t = getStrings(language);
+  const currentChipRef = useRef(null);
 
   const firstUnansweredIndex = questions.findIndex((q) => answers[q.id] === undefined);
   const startIndex = location.state?.index ?? (firstUnansweredIndex === -1 ? 0 : firstUnansweredIndex);
@@ -27,8 +28,14 @@ export default function Quiz() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index]);
 
+  useEffect(() => {
+    currentChipRef.current?.scrollIntoView({ block: "nearest", inline: "center" });
+  }, [index]);
+
   if (!question) return null;
 
+  // Jumping to an arbitrary question (not just ±1) reuses the same commit
+  // logic — Prev/Next and the jump strip both just call this with a target.
   function commitAndGo(nextIndex) {
     if (selected !== undefined) setAnswer(question.id, selected);
     if (nextIndex >= total) {
@@ -49,6 +56,22 @@ export default function Quiz() {
         </div>
         <div className="progress-track">
           <div className="progress-fill" style={{ width: `${pct}%` }} />
+        </div>
+        <div className="quiz-jump-strip">
+          {questions.map((q, i) => {
+            const isCurrent = i === index;
+            const isAnswered = answers[q.id] !== undefined;
+            return (
+              <button
+                key={q.id}
+                ref={isCurrent ? currentChipRef : null}
+                className={`quiz-jump-chip ${isAnswered ? "quiz-jump-chip--answered" : ""} ${isCurrent ? "quiz-jump-chip--current" : ""}`}
+                onClick={() => commitAndGo(i)}
+              >
+                {i + 1}
+              </button>
+            );
+          })}
         </div>
       </div>
 

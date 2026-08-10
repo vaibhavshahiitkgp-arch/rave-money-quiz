@@ -8,6 +8,9 @@ export async function submitLead(payload) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
+      // survives the page navigating away right after the call (e.g. tapping
+      // a WhatsApp/mailto link immediately after this fires)
+      keepalive: true,
     });
     return res.ok;
   } catch {

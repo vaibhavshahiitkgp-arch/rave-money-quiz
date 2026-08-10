@@ -262,6 +262,47 @@ a {
   transition: width 0.3s;
 }
 
+.quiz-jump-strip {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 2px 2px 4px;
+  scrollbar-width: none;
+}
+.quiz-jump-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.quiz-jump-chip {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid oklch(88% 0.008 85);
+  background: #fff;
+  color: var(--muted-soft);
+  font-family: Fredoka, sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quiz-jump-chip--answered {
+  background: var(--green-tint);
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.quiz-jump-chip--current {
+  border-color: var(--gold-accent);
+  border-width: 2px;
+  box-shadow: 0 0 0 2px oklch(72% 0.15 85 / 0.3);
+  color: var(--ink);
+}
+
 .question-card {
   background: #fff;
   border-radius: 18px;

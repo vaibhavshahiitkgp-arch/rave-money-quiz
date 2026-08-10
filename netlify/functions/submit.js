@@ -29,12 +29,15 @@ export default async (req) => {
     });
   }
 
-  // name/whatsapp are optional — anonymous score-only submissions (logged
-  // the moment someone sees their score, before any contact info is given)
-  // are a legitimate case alongside full leads from the unlock flow.
-  const { score, total } = payload ?? {};
-  if (typeof score !== "number" || typeof total !== "number") {
-    return new Response(JSON.stringify({ ok: false, error: "missing score" }), {
+  // A submission is either a quiz-result snapshot (score-log or results
+  // unlock — name/whatsapp optional) or a standalone course-interest ping
+  // (no score at all, just a sessionId + courseInterest flag). Reject only
+  // if it's neither.
+  const { score, total, courseInterest } = payload ?? {};
+  const hasScore = typeof score === "number" && typeof total === "number";
+  const hasCourseInterest = typeof courseInterest === "string" && courseInterest.trim().length > 0;
+  if (!hasScore && !hasCourseInterest) {
+    return new Response(JSON.stringify({ ok: false, error: "missing score or courseInterest" }), {
       status: 400,
       headers: { "Content-Type": "application/json" },
     });
