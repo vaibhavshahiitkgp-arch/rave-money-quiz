@@ -2,7 +2,8 @@ import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Mascot from "../components/Mascot";
 import { useQuiz } from "../state/QuizContext";
-import { getTier, mascotMouth } from "../data/tiers";
+import { getTier, getTierMessage, mascotMouth } from "../data/tiers";
+import { getStrings } from "../data/strings";
 import { submitLead } from "../utils/api";
 
 const SHAPES = [
@@ -19,6 +20,7 @@ export default function Score() {
   const navigate = useNavigate();
   const { submitted, score, total, language, answers, weakTopics, scoreLogged, markScoreLogged, sessionId } = useQuiz();
   const loggingRef = useRef(false);
+  const t = getStrings(language);
 
   useEffect(() => {
     if (!submitted) navigate("/", { replace: true });
@@ -90,7 +92,7 @@ export default function Score() {
       ))}
 
       <div style={{ fontSize: 12, letterSpacing: 1.5, color: "oklch(35% 0.06 150)", fontWeight: 700, textTransform: "uppercase", position: "relative", zIndex: 1 }}>
-        Your Result
+        {t.score.yourResult}
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 18, position: "relative", zIndex: 1 }}>
@@ -121,12 +123,12 @@ export default function Score() {
           <div style={{ fontFamily: "Fredoka, sans-serif", fontWeight: 700, fontSize: 18, color: "#fff", letterSpacing: 0.3, textTransform: "uppercase" }}>{tier.name}</div>
         </div>
         <div className="anim-slideUp" style={{ animationDelay: "0.25s", fontWeight: 600, fontSize: 14, color: "var(--muted)", maxWidth: 270, lineHeight: 1.5 }}>
-          {tier.message}
+          {getTierMessage(tier, language)}
         </div>
       </div>
 
-      <button className="btn3d btn3d--green" style={{ position: "relative", zIndex: 1 }} onClick={() => navigate("/options")}>
-        Continue
+      <button className="btn3d btn3d--green" style={{ position: "relative", zIndex: 1 }} onClick={() => navigate("/solution-gate")}>
+        {t.score.continue}
       </button>
     </div>
   );

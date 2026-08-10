@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import Mascot from "../components/Mascot";
 import { LANGUAGES } from "../data/languages";
+import { getStrings } from "../data/strings";
 import { useQuiz } from "../state/QuizContext";
 
 export default function Landing() {
   const navigate = useNavigate();
   const { language, setLanguage, total } = useQuiz();
+  const t = getStrings(language);
 
   return (
     <div className="card-shell dot-grid" style={{ padding: "36px 26px 30px", minHeight: 620, gap: 34 }}>
@@ -20,24 +22,26 @@ export default function Landing() {
           <div style={{ width: 22, height: 26, background: "var(--green)", clipPath: "polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%)", display: "flex", alignItems: "flex-start", justifyContent: "center", paddingTop: 4, flexShrink: 0 }}>
             <div style={{ color: "#fff", fontFamily: "Fredoka, sans-serif", fontWeight: 700, fontSize: 11 }}>R</div>
           </div>
-          <div style={{ fontSize: 13, letterSpacing: 1, color: "var(--ink)", fontWeight: 800 }}>RAVE FINANCE LABS</div>
+          <div style={{ fontSize: 13, letterSpacing: 1, color: "var(--ink)", fontWeight: 800 }}>{t.brand.name}</div>
         </div>
-        <div style={{ fontSize: 10.5, color: "var(--muted-soft)", fontWeight: 600 }}>from the makers of Apna Sapna Money Money</div>
+        <div style={{ fontSize: 10.5, color: "var(--muted-soft)", fontWeight: 600 }}>{t.brand.tagline}</div>
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, position: "relative", zIndex: 1 }}>
         <div className="anim-popIn" style={{ fontFamily: "Fredoka, sans-serif", fontSize: 27, fontWeight: 700, color: "var(--ink)", lineHeight: 1.2, textAlign: "center" }}>
-          The <span style={{ color: "oklch(45% 0.13 150)" }}>&#8220;Money Money&#8221;</span> Quiz
+          {t.landing.titlePrefix}
+          <span style={{ color: "oklch(45% 0.13 150)" }}>{t.landing.titleHighlight}</span>
+          {t.landing.titleSuffix}
         </div>
         <Mascot size={82} animate style={{ filter: "drop-shadow(0 10px 8px rgba(0,0,0,.15))" }} />
         <div className="anim-slideUp" style={{ animationDelay: "0.15s", fontWeight: 700, fontSize: 14, color: "var(--muted)", maxWidth: 270, lineHeight: 1.5, textAlign: "center" }}>
-          Not a test. No score shared. Just a mirror on what you already know about money.
+          {t.landing.subtitle}
         </div>
       </div>
 
       <div className="anim-slideUp" style={{ animationDelay: "0.25s", display: "flex", flexDirection: "column", alignItems: "center", gap: 18, width: "100%", position: "relative", zIndex: 1 }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 9 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: "var(--muted-soft)", letterSpacing: 0.4, textTransform: "uppercase" }}>Choose your language</div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: "var(--muted-soft)", letterSpacing: 0.4, textTransform: "uppercase" }}>{t.landing.chooseLanguage}</div>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
             {LANGUAGES.map((lang) => (
               <button
@@ -47,15 +51,15 @@ export default function Landing() {
                 disabled={!lang.available}
               >
                 {lang.label}
-                {!lang.available && " (soon)"}
+                {!lang.available && t.landing.comingSoon}
               </button>
             ))}
           </div>
         </div>
         <button className="btn3d btn3d--green" style={{ maxWidth: 280 }} onClick={() => navigate("/instructions")}>
-          START
+          {t.landing.start}
         </button>
-        <div style={{ fontSize: 12, color: "var(--muted-soft)", fontWeight: 600 }}>{total} questions • ~7 min</div>
+        <div style={{ fontSize: 12, color: "var(--muted-soft)", fontWeight: 600 }}>{t.landing.questionsCount(total)}</div>
       </div>
     </div>
   );

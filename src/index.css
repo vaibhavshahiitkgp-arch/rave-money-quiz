@@ -341,66 +341,6 @@ a {
   background: transparent;
 }
 
-/* ---------- options hub cards ---------- */
-
-.hub-card {
-  border-radius: 18px;
-  padding: 18px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  border: none;
-  text-align: left;
-  width: 100%;
-}
-
-.hub-card__title {
-  font-family: Fredoka, sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-}
-
-.hub-card__desc {
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-.hub-card__cta {
-  align-self: flex-end;
-  color: #fff;
-  padding: 6px 14px;
-  border-radius: 10px;
-  font-family: Fredoka, sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-}
-
-.hub-card--solution {
-  background: var(--green-tint);
-  box-shadow: 0 4px 0 oklch(85% 0.06 150);
-}
-.hub-card--solution .hub-card__title { color: oklch(25% 0.05 150); }
-.hub-card--solution .hub-card__desc { color: oklch(35% 0.05 150); }
-.hub-card--solution .hub-card__cta { background: var(--green); }
-
-.hub-card--share {
-  background: var(--terracotta-tint);
-  box-shadow: 0 4px 0 oklch(87% 0.07 45);
-}
-.hub-card--share .hub-card__title { color: oklch(35% 0.09 45); }
-.hub-card--share .hub-card__desc { color: oklch(45% 0.09 45); }
-.hub-card--share .hub-card__cta { background: var(--terracotta); }
-
-.hub-card--course {
-  background: oklch(72% 0.15 85 / 0.3);
-  box-shadow: 0 4px 0 oklch(70% 0.13 85 / 0.35);
-  border: 2px dashed oklch(60% 0.14 80);
-}
-.hub-card--course .hub-card__title { color: oklch(35% 0.1 70); }
-.hub-card--course .hub-card__desc { color: oklch(42% 0.1 70); }
-.hub-card--course .hub-card__cta { background: oklch(50% 0.12 70); }
-
 /* ---------- forms ---------- */
 
 .field-label {

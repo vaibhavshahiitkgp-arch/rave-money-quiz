@@ -1,17 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import Mascot from "../components/Mascot";
+import { getStrings } from "../data/strings";
 import { useQuiz } from "../state/QuizContext";
-
-const RULES = [
-  "Plain multiple-choice. No calculator needed.",
-  "Don't Google it, don't ask an AI — this is meant to reflect what you already know, not what you can look up.",
-  "Nobody is grading this, and no score is shared with anyone else. It's just for you.",
-  "You can move back and forth between questions and change your answers, right up until you submit.",
-];
 
 export default function Instructions() {
   const navigate = useNavigate();
-  useQuiz();
+  const { language } = useQuiz();
+  const t = getStrings(language);
 
   return (
     <div className="card-shell" style={{ padding: "32px 26px", gap: 28, position: "relative", overflow: "hidden" }}>
@@ -21,12 +16,12 @@ export default function Instructions() {
       <div style={{ display: "flex", flexDirection: "column", gap: 22, position: "relative", zIndex: 1 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div className="anim-slideUp" style={{ fontFamily: "Fredoka, sans-serif", fontSize: 22, fontWeight: 700, color: "var(--ink)" }}>
-            Before we start
+            {t.instructions.title}
           </div>
           <Mascot size={44} mouth="smile" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 12, background: "var(--green-tint)", borderRadius: 20, padding: 18 }}>
-          {RULES.map((text, i) => (
+          {t.instructions.rules.map((text, i) => (
             <div key={i} className="anim-slideUp" style={{ animationDelay: `${0.05 + i * 0.07}s`, display: "flex", gap: 13, alignItems: "flex-start" }}>
               <div
                 style={{
@@ -52,7 +47,7 @@ export default function Instructions() {
         </div>
       </div>
       <button className="btn3d btn3d--green" style={{ position: "relative", zIndex: 1 }} onClick={() => navigate("/quiz")}>
-        Begin Quiz
+        {t.instructions.begin}
       </button>
     </div>
   );

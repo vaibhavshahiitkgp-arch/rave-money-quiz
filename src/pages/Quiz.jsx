@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { getStrings } from "../data/strings";
 import { useQuiz } from "../state/QuizContext";
 
 const LETTERS = ["A", "B", "C", "D"];
@@ -7,7 +8,8 @@ const LETTERS = ["A", "B", "C", "D"];
 export default function Quiz() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { questions, total, answers, setAnswer } = useQuiz();
+  const { questions, total, answers, setAnswer, language } = useQuiz();
+  const t = getStrings(language);
 
   const firstUnansweredIndex = questions.findIndex((q) => answers[q.id] === undefined);
   const startIndex = location.state?.index ?? (firstUnansweredIndex === -1 ? 0 : firstUnansweredIndex);
@@ -43,7 +45,7 @@ export default function Quiz() {
     <div className="card-shell">
       <div style={{ padding: "18px 22px 12px", display: "flex", flexDirection: "column", gap: 9, borderBottom: "2px solid oklch(91% 0.008 85)" }}>
         <div style={{ fontFamily: "Fredoka, sans-serif", fontWeight: 600, fontSize: 13, color: "var(--muted)" }}>
-          Question {index + 1} of {total}
+          {t.quiz.questionOf(index + 1, total)}
         </div>
         <div className="progress-track">
           <div className="progress-fill" style={{ width: `${pct}%` }} />
@@ -76,10 +78,10 @@ export default function Quiz() {
           disabled={index === 0}
           onClick={() => commitAndGo(index - 1)}
         >
-          &lsaquo; Prev
+          {t.quiz.prev}
         </button>
         <button className="btn3d btn3d--green" style={{ flex: 2 }} onClick={() => commitAndGo(index + 1)}>
-          {isLast ? "Review & Submit" : "Next"}
+          {isLast ? t.quiz.reviewSubmit : t.quiz.next}
         </button>
       </div>
     </div>
