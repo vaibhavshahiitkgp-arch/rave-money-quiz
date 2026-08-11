@@ -5,6 +5,7 @@ import { getTier } from "../data/tiers";
 import { getStrings } from "../data/strings";
 import { isValidIndianMobile, isValidName, normalizeIndianMobile } from "../utils/validate";
 import { submitLead } from "../utils/api";
+import Mascot from "../components/Mascot";
 
 export default function SolutionGate() {
   const navigate = useNavigate();
@@ -50,14 +51,39 @@ export default function SolutionGate() {
     navigate("/score");
   }
 
+  const pct = total > 0 ? Math.round((score / total) * 100) : 0;
+
   return (
-    <div className="card-shell blob-bg blob-bg--a" style={{ padding: "30px 26px", gap: 28 }}>
-      <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+    <div className="card-shell" style={{ padding: "30px 26px", gap: 24, position: "relative" }}>
+      {/* A real, data-driven preview of the score ring -- blurred just enough
+          to hide the actual number while still showing something is there
+          to claim. Peeks from the top corner like the app's other
+          corner-bleed decoration, clipped by the card's own overflow:hidden. */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: -70,
+          right: -70,
+          width: 210,
+          height: 210,
+          borderRadius: "50%",
+          background: `conic-gradient(oklch(58% 0.14 45) 0%, oklch(58% 0.14 45) ${pct}%, oklch(90% 0.015 70) ${pct}%, oklch(90% 0.015 70) 100%)`,
+          filter: "blur(6px)",
+          opacity: 0.5,
+          zIndex: 0,
+        }}
+      />
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 18, position: "relative", zIndex: 1 }}>
         <button className="back-link" onClick={() => navigate("/post-submit")}>
           {t.solutionGate.back}
         </button>
-        <div style={{ fontFamily: "var(--font-heading)", fontSize: 20, fontWeight: 700, color: "var(--ink)" }}>{t.solutionGate.title}</div>
-        <p style={{ fontSize: 13.5, color: "var(--muted)", lineHeight: 1.5 }}>{t.solutionGate.body}</p>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, textAlign: "center" }}>
+          <Mascot size={92} pose="envelope" mouth="smile" className="anim-popIn" style={{ filter: "drop-shadow(0 8px 6px rgba(0,0,0,.15))" }} />
+          <div style={{ fontFamily: "var(--font-heading)", fontSize: 20, fontWeight: 700, color: "var(--ink)" }}>{t.solutionGate.title}</div>
+          <p style={{ fontSize: 13.5, color: "var(--muted)", lineHeight: 1.5, maxWidth: 280 }}>{t.solutionGate.body}</p>
+        </div>
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             <label className="field-label" htmlFor="name">{t.solutionGate.nameLabel}</label>
@@ -65,7 +91,7 @@ export default function SolutionGate() {
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             <label className="field-label" htmlFor="whatsapp">{t.solutionGate.whatsappLabel}</label>
-            <input id="whatsapp" className="field-input" type="tel" placeholder={t.solutionGate.whatsappPlaceholder} value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} />
+            <input id="whatsapp" className="field-input" type="tel" inputMode="numeric" placeholder={t.solutionGate.whatsappPlaceholder} value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} />
           </div>
           {error && <div className="field-error">{error}</div>}
           <button className="btn3d btn3d--green" type="submit">
