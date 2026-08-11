@@ -108,7 +108,7 @@ export default function Quiz() {
             <button
               key={question.id + "-" + i}
               className={`option-row anim-slideUp ${selected === i ? "option-row--selected" : ""}`}
-              style={{ animationDelay: `${i * 0.06}s` }}
+              style={{ animationDelay: `${0.15 + i * 0.09}s` }}
               onClick={() => setSelected(i)}
             >
               <span className="option-letter">{LETTERS[i]}</span>
