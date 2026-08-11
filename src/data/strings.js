@@ -60,7 +60,7 @@ export const STRINGS = {
     },
     solutionGate: {
       title: "Get your results",
-      body: "We'll use this only to send you the solution and occasional updates from RAVE Finance Labs.",
+      body: "Enter your details to reveal your score and full results. We'll use this only to send you your results and occasional updates from RAVE Finance Labs.",
       nameLabel: "Your name",
       namePlaceholder: "e.g. Priya Shah",
       whatsappLabel: "WhatsApp number",
@@ -157,7 +157,7 @@ export const STRINGS = {
     },
     solutionGate: {
       title: "अपना परिणाम पाएं",
-      body: "हम इसका इस्तेमाल सिर्फ आपको समाधान भेजने और RAVE Finance Labs की कभी-कभार होने वाली अपडेट्स के लिए करेंगे।",
+      body: "अपना स्कोर और पूरा परिणाम देखने के लिए अपनी जानकारी भरें। हम इसका इस्तेमाल सिर्फ आपको परिणाम भेजने और RAVE Finance Labs की कभी-कभार होने वाली अपडेट्स के लिए करेंगे।",
       nameLabel: "आपका नाम",
       namePlaceholder: "उदाहरण: प्रिया शाह",
       whatsappLabel: "व्हाट्सएप नंबर",
@@ -254,7 +254,7 @@ export const STRINGS = {
     },
     solutionGate: {
       title: "તમારું પરિણામ મેળવો",
-      body: "અમે આનો ઉપયોગ ફક્ત તમને સોલ્યુશન મોકલવા અને RAVE Finance Labsના ક્યારેક આવતા અપડેટ્સ માટે જ કરીશું.",
+      body: "તમારો સ્કોર અને સંપૂર્ણ પરિણામ જોવા માટે તમારી માહિતી ભરો. અમે આનો ઉપયોગ ફક્ત તમને પરિણામ મોકલવા અને RAVE Finance Labsના ક્યારેક આવતા અપડેટ્સ માટે જ કરીશું.",
       nameLabel: "તમારું નામ",
       namePlaceholder: "ઉદાહરણ: પ્રિયા શાહ",
       whatsappLabel: "વોટ્સએપ નંબર",

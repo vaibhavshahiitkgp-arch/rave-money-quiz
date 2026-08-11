@@ -47,13 +47,13 @@ export default function SolutionGate() {
     });
 
     unlockDetailed(contact);
-    navigate("/solution");
+    navigate("/score");
   }
 
   return (
     <div className="card-shell blob-bg blob-bg--a" style={{ padding: "30px 26px", gap: 28 }}>
       <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-        <button className="back-link" onClick={() => navigate("/score")}>
+        <button className="back-link" onClick={() => navigate("/post-submit")}>
           {t.solutionGate.back}
         </button>
         <div style={{ fontFamily: "Fredoka, sans-serif", fontSize: 20, fontWeight: 700, color: "var(--ink)" }}>{t.solutionGate.title}</div>

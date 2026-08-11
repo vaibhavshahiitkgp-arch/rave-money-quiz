@@ -1,10 +1,9 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Mascot from "../components/Mascot";
 import { useQuiz } from "../state/QuizContext";
 import { getTier, getTierMessage, mascotMouth } from "../data/tiers";
 import { getStrings } from "../data/strings";
-import { submitLead } from "../utils/api";
 
 const SHAPES = [
   { top: 16, left: 22, size: 14, shape: "diamond", color: "var(--gold-accent)", anim: "floatSlow 4.5s ease-in-out infinite" },
@@ -18,40 +17,18 @@ const SHAPES = [
 
 export default function Score() {
   const navigate = useNavigate();
-  const { submitted, score, total, language, answers, weakTopics, scoreLogged, markScoreLogged, sessionId, resetQuiz } = useQuiz();
-  const loggingRef = useRef(false);
+  const { submitted, detailedUnlocked, score, total, language, resetQuiz } = useQuiz();
   const t = getStrings(language);
 
   useEffect(() => {
     if (!submitted) navigate("/", { replace: true });
-  }, [submitted, navigate]);
+    // Contact details are captured before the score is ever shown, so
+    // reaching this screen without them means the gate was skipped
+    // (e.g. a direct/back-button navigation) — send them there first.
+    else if (!detailedUnlocked) navigate("/solution-gate", { replace: true });
+  }, [submitted, detailedUnlocked, navigate]);
 
-  // Log every completed quiz to the Sheet, even if the person never unlocks
-  // the detailed solution or shares via the contact-capture flow — this is
-  // the only record for someone who just shares their score informally.
-  // loggingRef guards against React StrictMode's double-invoked effects in
-  // dev (setState-based scoreLogged alone isn't fast enough to prevent that).
-  useEffect(() => {
-    if (!submitted || scoreLogged || total === 0 || loggingRef.current) return;
-    loggingRef.current = true;
-    const tierName = getTier(score, total).name;
-    submitLead({
-      sessionId,
-      name: "",
-      whatsapp: "",
-      language,
-      score,
-      total,
-      tier: tierName,
-      weakTopics,
-      answers,
-      submittedAt: new Date().toISOString(),
-    });
-    markScoreLogged();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [submitted, scoreLogged, total]);
-
-  if (!submitted) return null;
+  if (!submitted || !detailedUnlocked) return null;
 
   const tier = getTier(score, total);
   const pct = Math.round((score / total) * 100);
@@ -132,7 +109,7 @@ export default function Score() {
         </div>
       </div>
 
-      <button className="btn3d btn3d--green" style={{ position: "relative", zIndex: 1 }} onClick={() => navigate("/solution-gate")}>
+      <button className="btn3d btn3d--green" style={{ position: "relative", zIndex: 1 }} onClick={() => navigate("/solution")}>
         {t.score.continue}
       </button>
 

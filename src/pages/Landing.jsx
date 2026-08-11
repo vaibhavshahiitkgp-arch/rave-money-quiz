@@ -7,15 +7,16 @@ import { useQuiz } from "../state/QuizContext";
 
 export default function Landing() {
   const navigate = useNavigate();
-  const { language, setLanguage, total, submitted } = useQuiz();
+  const { language, setLanguage, total, submitted, detailedUnlocked } = useQuiz();
   const t = getStrings(language);
 
   // Returning visitor who already finished — skip straight to their score
-  // instead of the language picker again. Retaking is a deliberate action
-  // (see Score screen), not something a re-visit should reset silently.
+  // (or the contact gate, if they dropped off before completing it) instead
+  // of the language picker again. Retaking is a deliberate action (see
+  // Score screen), not something a re-visit should reset silently.
   useEffect(() => {
-    if (submitted) navigate("/score", { replace: true });
-  }, [submitted, navigate]);
+    if (submitted) navigate(detailedUnlocked ? "/score" : "/solution-gate", { replace: true });
+  }, [submitted, detailedUnlocked, navigate]);
 
   if (submitted) return null;
 

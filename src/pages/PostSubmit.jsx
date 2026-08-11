@@ -40,7 +40,7 @@ export default function PostSubmit() {
         <div style={{ fontSize: 14, color: "oklch(35% 0.06 150)", maxWidth: 260, lineHeight: 1.5, fontWeight: 700 }}>{t.postSubmit.subtitle}</div>
       </div>
 
-      <button className="btn3d btn3d--green" style={{ position: "relative", zIndex: 1 }} onClick={() => navigate("/score")}>
+      <button className="btn3d btn3d--green" style={{ position: "relative", zIndex: 1 }} onClick={() => navigate("/solution-gate")}>
         {t.postSubmit.seeScore}
       </button>
     </div>
