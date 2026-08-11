@@ -21,7 +21,7 @@ export default function Landing() {
   if (submitted) return null;
 
   return (
-    <div className="card-shell dot-grid" style={{ padding: "36px 26px 30px", minHeight: 620, gap: 34 }}>
+    <div className="card-shell dot-grid" style={{ padding: "36px 26px 30px", minHeight: 620, gap: 34, justifyContent: "space-between" }}>
       <div className="float-shape" style={{ top: 26, left: 20, width: 34, height: 34, borderRadius: "50%", background: "oklch(45% 0.1 150 / 0.13)", animation: "floatSlow 5s ease-in-out infinite" }} />
       <div className="float-shape" style={{ top: 70, right: 24, width: 22, height: 22, borderRadius: 6, transform: "rotate(20deg)", background: "oklch(58% 0.14 45 / 0.16)", animation: "floatSlow2 4.2s ease-in-out infinite" }} />
       <div className="float-shape" style={{ bottom: 150, left: 30, width: 18, height: 18, transform: "rotate(45deg)", background: "oklch(72% 0.15 85 / 0.3)", animation: "floatSlow2 6s ease-in-out infinite" }} />

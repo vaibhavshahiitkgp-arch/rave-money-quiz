@@ -148,32 +148,33 @@ a {
   overflow: hidden;
 }
 
+/* Sized/offset so only a small corner glow shows inside the card's own
+   padding gutter (~26-30px) -- large enough to read as decoration, small
+   enough to never sit behind a back-link or CTA in the content column. */
 .blob-bg::before,
 .blob-bg::after {
   content: "";
   position: absolute;
-  width: 190px;
-  height: 190px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   z-index: 0;
 }
 
 .blob-bg::before {
   background: oklch(93% 0.05 150);
-  top: -50px;
+  top: -76px;
 }
 
 .blob-bg::after {
   background: oklch(94% 0.06 45);
-  width: 180px;
-  height: 180px;
-  bottom: -60px;
+  bottom: -76px;
 }
 
-.blob-bg--a::before { left: -40px; }
-.blob-bg--a::after { right: -50px; }
-.blob-bg--b::before { right: -40px; }
-.blob-bg--b::after { left: -50px; }
+.blob-bg--a::before { left: -76px; }
+.blob-bg--a::after { right: -76px; }
+.blob-bg--b::before { right: -76px; }
+.blob-bg--b::after { left: -76px; }
 
 .blob-bg > * {
   position: relative;
@@ -262,28 +263,75 @@ a {
   transition: width 0.3s;
 }
 
-.quiz-jump-strip {
-  display: flex;
-  gap: 6px;
-  overflow-x: auto;
-  padding: 2px 2px 4px;
-  scrollbar-width: none;
+.jump-trigger {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  padding: 2px 0;
+  font-family: Fredoka, sans-serif;
+  font-weight: 700;
+  font-size: 12.5px;
+  color: var(--green);
+  cursor: pointer;
 }
-.quiz-jump-strip::-webkit-scrollbar {
-  display: none;
+
+/* Full-question grid, tucked behind the "All questions" trigger instead of
+   living in the header at all times -- 20 tappable chips don't fit a
+   phone-width strip at a usable tap-target size. */
+.jump-sheet-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 20;
+  display: flex;
+  align-items: flex-end;
+}
+
+.jump-sheet {
+  width: 100%;
+  max-height: 72%;
+  background: var(--cream-card);
+  border-radius: 22px 22px 0 0;
+  padding: 18px 20px calc(18px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  animation: slideUp 0.25s ease both;
+}
+
+.jump-sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.jump-sheet-close {
+  background: none;
+  border: none;
+  padding: 4px;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--muted-soft);
+  cursor: pointer;
+}
+
+.jump-sheet-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
 }
 
 .quiz-jump-chip {
-  flex: none;
-  width: 26px;
-  height: 26px;
+  width: 100%;
+  aspect-ratio: 1;
   border-radius: 50%;
   border: 1.5px solid oklch(88% 0.008 85);
   background: #fff;
   color: var(--muted-soft);
   font-family: Fredoka, sans-serif;
   font-weight: 600;
-  font-size: 11px;
+  font-size: 14px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -544,4 +592,23 @@ a {
   font-size: 11px;
   color: var(--muted-soft);
   text-align: center;
+}
+
+/* ---------- mobile: card fills the screen, not a desktop card on grey ---------- */
+
+/* Below tablet width there's no "outside the card" — the card IS the
+   screen, so it should fill the viewport edge-to-edge instead of floating
+   as a desktop-style card on a grey backdrop. align-items:stretch makes
+   .card-shell fill #root's full height even though most pages also set
+   their own (smaller, desktop-sized) inline minHeight. Placed last in the
+   file so it wins the cascade over the earlier same-specificity rules. */
+@media (max-width: 520px) {
+  #root {
+    padding: 0;
+    align-items: stretch;
+  }
+  .card-shell {
+    border-radius: 0;
+    box-shadow: none;
+  }
 }

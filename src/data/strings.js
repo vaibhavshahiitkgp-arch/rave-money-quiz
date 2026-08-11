@@ -40,6 +40,8 @@ export const STRINGS = {
       prev: "‹ Prev",
       next: "Next",
       reviewSubmit: "Review & Submit",
+      allQuestions: "All questions",
+      close: "Close",
     },
     review: {
       title: "Just a couple left",
@@ -137,6 +139,8 @@ export const STRINGS = {
       prev: "‹ पिछला",
       next: "अगला",
       reviewSubmit: "समीक्षा करें और सबमिट करें",
+      allQuestions: "सभी सवाल",
+      close: "बंद करें",
     },
     review: {
       title: "बस कुछ सवाल बाकी हैं",
@@ -234,6 +238,8 @@ export const STRINGS = {
       prev: "‹ પાછળ",
       next: "આગળ",
       reviewSubmit: "સમીક્ષા કરો અને સબમિટ કરો",
+      allQuestions: "બધા પ્રશ્નો",
+      close: "બંધ કરો",
     },
     review: {
       title: "બસ થોડા પ્રશ્નો બાકી છે",

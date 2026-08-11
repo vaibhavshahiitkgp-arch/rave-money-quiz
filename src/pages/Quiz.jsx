@@ -11,6 +11,7 @@ export default function Quiz() {
   const { questions, total, answers, setAnswer, language } = useQuiz();
   const t = getStrings(language);
   const currentChipRef = useRef(null);
+  const [showJumpSheet, setShowJumpSheet] = useState(false);
 
   const firstUnansweredIndex = questions.findIndex((q) => answers[q.id] === undefined);
   const startIndex = location.state?.index ?? (firstUnansweredIndex === -1 ? 0 : firstUnansweredIndex);
@@ -51,29 +52,52 @@ export default function Quiz() {
   return (
     <div className="card-shell">
       <div style={{ padding: "18px 22px 12px", display: "flex", flexDirection: "column", gap: 9, borderBottom: "2px solid oklch(91% 0.008 85)" }}>
-        <div style={{ fontFamily: "Fredoka, sans-serif", fontWeight: 600, fontSize: 13, color: "var(--muted)" }}>
-          {t.quiz.questionOf(index + 1, total)}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div style={{ fontFamily: "Fredoka, sans-serif", fontWeight: 600, fontSize: 13, color: "var(--muted)" }}>
+            {t.quiz.questionOf(index + 1, total)}
+          </div>
+          <button className="jump-trigger" onClick={() => setShowJumpSheet(true)}>
+            {t.quiz.allQuestions}
+          </button>
         </div>
         <div className="progress-track">
           <div className="progress-fill" style={{ width: `${pct}%` }} />
         </div>
-        <div className="quiz-jump-strip">
-          {questions.map((q, i) => {
-            const isCurrent = i === index;
-            const isAnswered = answers[q.id] !== undefined;
-            return (
-              <button
-                key={q.id}
-                ref={isCurrent ? currentChipRef : null}
-                className={`quiz-jump-chip ${isAnswered ? "quiz-jump-chip--answered" : ""} ${isCurrent ? "quiz-jump-chip--current" : ""}`}
-                onClick={() => commitAndGo(i)}
-              >
-                {i + 1}
-              </button>
-            );
-          })}
-        </div>
       </div>
+
+      {showJumpSheet && (
+        <div className="jump-sheet-backdrop" onClick={() => setShowJumpSheet(false)}>
+          <div className="jump-sheet" onClick={(e) => e.stopPropagation()}>
+            <div className="jump-sheet-header">
+              <div style={{ fontFamily: "Fredoka, sans-serif", fontWeight: 700, fontSize: 16, color: "var(--ink)" }}>
+                {t.quiz.allQuestions}
+              </div>
+              <button className="jump-sheet-close" onClick={() => setShowJumpSheet(false)} aria-label={t.quiz.close}>
+                ✕
+              </button>
+            </div>
+            <div className="jump-sheet-grid">
+              {questions.map((q, i) => {
+                const isCurrent = i === index;
+                const isAnswered = answers[q.id] !== undefined;
+                return (
+                  <button
+                    key={q.id}
+                    ref={isCurrent ? currentChipRef : null}
+                    className={`quiz-jump-chip ${isAnswered ? "quiz-jump-chip--answered" : ""} ${isCurrent ? "quiz-jump-chip--current" : ""}`}
+                    onClick={() => {
+                      setShowJumpSheet(false);
+                      commitAndGo(i);
+                    }}
+                  >
+                    {i + 1}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
 
       <div style={{ flex: 1, overflowY: "auto", padding: "20px 22px 8px", display: "flex", flexDirection: "column", gap: 16 }}>
         <div key={question.id} className="question-card anim-popIn">

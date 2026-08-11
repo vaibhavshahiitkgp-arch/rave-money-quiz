@@ -9,7 +9,7 @@ export default function Instructions() {
   const t = getStrings(language);
 
   return (
-    <div className="card-shell" style={{ padding: "32px 26px", gap: 28, position: "relative", overflow: "hidden" }}>
+    <div className="card-shell" style={{ padding: "32px 26px", gap: 28, position: "relative", overflow: "hidden", justifyContent: "space-between" }}>
       <div className="float-shape" style={{ top: -20, right: -20, width: 100, height: 100, borderRadius: "50%", background: "oklch(93% 0.04 150 / 0.6)" }} />
       <div className="float-shape" style={{ top: 36, right: 34, width: 30, height: 30, borderRadius: 8, transform: "rotate(18deg)", background: "oklch(58% 0.14 45 / 0.18)", animation: "floatSlow 5s ease-in-out infinite" }} />
 
