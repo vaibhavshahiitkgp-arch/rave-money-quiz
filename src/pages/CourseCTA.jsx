@@ -40,10 +40,6 @@ export default function CourseCTA() {
           <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 15, color: "var(--ink)" }}>Investing as a Life Skill</div>
           <div style={{ fontSize: 12.5, color: "var(--muted-soft)" }}>{t.course.courseDesc}</div>
           <div style={{ fontSize: 13, color: "var(--terracotta-shadow)", fontWeight: 700, lineHeight: 1.5 }}>{intro}</div>
-          {/* PLACEHOLDER curriculum bullets — swap for RAVE Finance Labs' real
-              12-week outline when supplied (a fuller version exists in
-              earlier project material). Kept internal-only; do not expose
-              "placeholder" language to end users. */}
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 4 }}>
             {t.course.bullets.map((b, i) => (
               <div key={i} style={{ fontSize: 13, color: "oklch(35% 0.02 260)" }}>
