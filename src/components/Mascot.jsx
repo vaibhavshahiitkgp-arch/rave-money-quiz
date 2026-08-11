@@ -15,7 +15,11 @@ const ARM_STYLE = {
 };
 
 const POSES = {
-  wave: [{ ...ARM_STYLE, top: 22, left: 75, transformOrigin: "50% 10%", transform: "rotate(-35deg)" }],
+  // Static transform for browsers before the animation kicks in; the
+  // animation itself (see index.css) swings between -38deg and -15deg,
+  // since a fixed-angle "wave" arm reads as a broken/pointless limb, not
+  // a wave -- the whole point of this pose is the motion, not the shape.
+  wave: [{ ...ARM_STYLE, top: 22, left: 75, transformOrigin: "50% 10%", transform: "rotate(-38deg)", animation: "armWave 1s ease-in-out infinite" }],
   think: [{ ...ARM_STYLE, top: 36, left: 6, height: 34, transformOrigin: "50% 90%", transform: "rotate(55deg)" }],
   celebrate: [
     { ...ARM_STYLE, top: 12, left: 77, transformOrigin: "50% 95%", transform: "rotate(-15deg)" },

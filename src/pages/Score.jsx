@@ -99,6 +99,7 @@ export default function Score() {
               sparkle={tier.name === "Money Master"}
               pose={tier.name === "Money Master" ? "celebrate" : undefined}
               dashedRing
+              animate
             />
           </div>
           <div style={{ position: "absolute", bottom: -4, background: "var(--terracotta-tint)", padding: "3px 14px", borderRadius: 12, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 18, color: "var(--ink)" }}>

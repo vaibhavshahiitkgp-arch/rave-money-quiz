@@ -12,16 +12,20 @@ import Share from "./pages/Share";
 import CourseCTA from "./pages/CourseCTA";
 
 // Outgoing screen slides left while the incoming one slides in from the
-// right, overlapping instead of the instant swap React Router does by
-// default -- mode="popLayout" pulls the exiting screen out of flow
-// (position: absolute) the moment it starts exiting, so it doesn't push
-// the entering screen's layout around while both are briefly on screen.
+// right, overlapping rather than gating one on the other. mode="popLayout"
+// pulls the exiting screen out of flow (position: absolute) the instant
+// it starts leaving and mounts the incoming one immediately in normal
+// flow -- deliberately NOT mode="wait": that mode blocks the new screen
+// from rendering until the old one's exit finishes, which means if that
+// completion ever doesn't fire (backgrounded tab mid-tap, dropped frames,
+// a slow device), the app is stuck showing stale content under a
+// mismatched URL. Confirmed that failure mode directly while testing.
 const VARIANTS = {
-  initial: { opacity: 0, x: 28 },
+  initial: { opacity: 0, x: 60 },
   animate: { opacity: 1, x: 0 },
-  exit: { opacity: 0, x: -28 },
+  exit: { opacity: 0, x: -60 },
 };
-const TRANSITION = { duration: 0.3, ease: [0.16, 1, 0.3, 1] };
+const TRANSITION = { duration: 0.32, ease: [0.16, 1, 0.3, 1] };
 
 export default function App() {
   const location = useLocation();

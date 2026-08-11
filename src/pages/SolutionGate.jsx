@@ -80,7 +80,7 @@ export default function SolutionGate() {
           {t.solutionGate.back}
         </button>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, textAlign: "center" }}>
-          <Mascot size={92} pose="envelope" mouth="smile" className="anim-popIn" style={{ filter: "drop-shadow(0 8px 6px rgba(0,0,0,.15))" }} />
+          <Mascot size={92} pose="envelope" mouth="smile" animate className="anim-popIn" style={{ filter: "drop-shadow(0 8px 6px rgba(0,0,0,.15))" }} />
           <div style={{ fontFamily: "var(--font-heading)", fontSize: 20, fontWeight: 700, color: "var(--ink)" }}>{t.solutionGate.title}</div>
           <p style={{ fontSize: 13.5, color: "var(--muted)", lineHeight: 1.5, maxWidth: 280 }}>{t.solutionGate.body}</p>
         </div>
