@@ -56,7 +56,7 @@ export default function SolutionGate() {
         <button className="back-link" onClick={() => navigate("/post-submit")}>
           {t.solutionGate.back}
         </button>
-        <div style={{ fontFamily: "Fredoka, sans-serif", fontSize: 20, fontWeight: 700, color: "var(--ink)" }}>{t.solutionGate.title}</div>
+        <div style={{ fontFamily: "var(--font-heading)", fontSize: 20, fontWeight: 700, color: "var(--ink)" }}>{t.solutionGate.title}</div>
         <p style={{ fontSize: 13.5, color: "var(--muted)", lineHeight: 1.5 }}>{t.solutionGate.body}</p>
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>

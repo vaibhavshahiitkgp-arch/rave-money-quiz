@@ -15,7 +15,7 @@ export default function Instructions() {
 
       <div style={{ display: "flex", flexDirection: "column", gap: 22, position: "relative", zIndex: 1 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div className="anim-slideUp" style={{ fontFamily: "Fredoka, sans-serif", fontSize: 22, fontWeight: 700, color: "var(--ink)" }}>
+          <div className="anim-slideUp" style={{ fontFamily: "var(--font-heading)", fontSize: 22, fontWeight: 700, color: "var(--ink)" }}>
             {t.instructions.title}
           </div>
           <Mascot size={44} mouth="smile" />
@@ -34,7 +34,7 @@ export default function Instructions() {
                   alignItems: "center",
                   justifyContent: "center",
                   color: "#fff",
-                  fontFamily: "Fredoka, sans-serif",
+                  fontFamily: "var(--font-heading)",
                   fontWeight: 700,
                   fontSize: 14,
                 }}

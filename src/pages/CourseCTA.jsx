@@ -32,12 +32,12 @@ export default function CourseCTA() {
         <button className="back-link" onClick={() => navigate(-1)}>
           {t.course.back}
         </button>
-        <div style={{ fontFamily: "Fredoka, sans-serif", fontSize: 19, fontWeight: 700, color: "var(--ink)", lineHeight: 1.4 }}>
+        <div style={{ fontFamily: "var(--font-heading)", fontSize: 19, fontWeight: 700, color: "var(--ink)", lineHeight: 1.4 }}>
           {t.course.title}
         </div>
         <div style={{ fontSize: 14, color: "var(--ink)", fontWeight: 700 }}>{t.course.subtitle}</div>
         <div style={{ background: "#fff", borderRadius: 16, padding: 16, boxShadow: "0 2px 8px rgba(0,0,0,.05)", display: "flex", flexDirection: "column", gap: 10 }}>
-          <div style={{ fontFamily: "Fredoka, sans-serif", fontWeight: 700, fontSize: 15, color: "var(--ink)" }}>Investing as a Life Skill</div>
+          <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 15, color: "var(--ink)" }}>Investing as a Life Skill</div>
           <div style={{ fontSize: 12.5, color: "var(--muted-soft)" }}>{t.course.courseDesc}</div>
           <div style={{ fontSize: 13, color: "var(--green)", fontWeight: 700, lineHeight: 1.5 }}>{intro}</div>
           {/* PLACEHOLDER curriculum bullets — swap for RAVE Finance Labs' real

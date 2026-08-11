@@ -94,7 +94,7 @@ export default function Score() {
           <div style={{ width: 138, height: 138, borderRadius: "50%", background: "var(--green-tint)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <Mascot size={74} ribbonColor={tier.ribbon} mouth={mouth} sparkle={tier.name === "Money Master"} dashedRing />
           </div>
-          <div style={{ position: "absolute", bottom: -4, background: "var(--green-tint)", padding: "3px 14px", borderRadius: 12, fontFamily: "Fredoka, sans-serif", fontWeight: 700, fontSize: 18, color: "var(--ink)" }}>
+          <div style={{ position: "absolute", bottom: -4, background: "var(--green-tint)", padding: "3px 14px", borderRadius: 12, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 18, color: "var(--ink)" }}>
             {score}/{total}
           </div>
         </div>
@@ -102,7 +102,7 @@ export default function Score() {
         <div className="anim-slideUp" style={{ animationDelay: "0.15s", position: "relative", padding: "11px 26px", background: tier.ribbon, transform: "rotate(-1.5deg)", boxShadow: `0 4px 0 ${tier.shadow}` }}>
           <div style={{ position: "absolute", left: -10, top: 0, width: 0, height: 0, borderTop: `21px solid ${tier.ribbon}`, borderLeft: "10px solid transparent" }} />
           <div style={{ position: "absolute", right: -10, top: 0, width: 0, height: 0, borderTop: `21px solid ${tier.ribbon}`, borderRight: "10px solid transparent" }} />
-          <div style={{ fontFamily: "Fredoka, sans-serif", fontWeight: 700, fontSize: 18, color: "#fff", letterSpacing: 0.3, textTransform: "uppercase" }}>{tier.name}</div>
+          <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 18, color: "#fff", letterSpacing: 0.3, textTransform: "uppercase" }}>{tier.name}</div>
         </div>
         <div className="anim-slideUp" style={{ animationDelay: "0.25s", fontWeight: 600, fontSize: 14, color: "var(--muted)", maxWidth: 270, lineHeight: 1.5 }}>
           {getTierMessage(tier, language)}

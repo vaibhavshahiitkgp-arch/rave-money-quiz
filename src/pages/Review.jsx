@@ -30,7 +30,7 @@ export default function Review() {
   return (
     <div className="card-shell" style={{ padding: "32px 26px", gap: 28 }}>
       <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-        <div style={{ fontFamily: "Fredoka, sans-serif", fontSize: 20, fontWeight: 700, color: "var(--ink)" }}>{t.review.title}</div>
+        <div style={{ fontFamily: "var(--font-heading)", fontSize: 20, fontWeight: 700, color: "var(--ink)" }}>{t.review.title}</div>
         <p style={{ fontSize: 14, color: "var(--muted)", lineHeight: 1.5 }}>{t.review.body}</p>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           {unansweredNumbers.map(({ num }) => (

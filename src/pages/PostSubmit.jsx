@@ -36,7 +36,7 @@ export default function PostSubmit() {
 
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, position: "relative", zIndex: 1 }}>
         <Mascot size={92} mouth="smile" className="anim-popIn" style={{ filter: "drop-shadow(0 10px 8px rgba(0,0,0,.18))" }} />
-        <div style={{ fontFamily: "Fredoka, sans-serif", fontSize: 23, fontWeight: 700, color: "var(--ink)" }}>{t.postSubmit.title}</div>
+        <div style={{ fontFamily: "var(--font-heading)", fontSize: 23, fontWeight: 700, color: "var(--ink)" }}>{t.postSubmit.title}</div>
         <div style={{ fontSize: 14, color: "oklch(35% 0.06 150)", maxWidth: 260, lineHeight: 1.5, fontWeight: 700 }}>{t.postSubmit.subtitle}</div>
       </div>
 

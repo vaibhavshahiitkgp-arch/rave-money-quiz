@@ -53,7 +53,7 @@ export default function Quiz() {
     <div className="card-shell">
       <div style={{ padding: "18px 22px 12px", display: "flex", flexDirection: "column", gap: 9, borderBottom: "2px solid oklch(91% 0.008 85)" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ fontFamily: "Fredoka, sans-serif", fontWeight: 600, fontSize: 13, color: "var(--muted)" }}>
+          <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: 13, color: "var(--muted)" }}>
             {t.quiz.questionOf(index + 1, total)}
           </div>
           <button className="jump-trigger" onClick={() => setShowJumpSheet(true)}>
@@ -69,7 +69,7 @@ export default function Quiz() {
         <div className="jump-sheet-backdrop" onClick={() => setShowJumpSheet(false)}>
           <div className="jump-sheet" onClick={(e) => e.stopPropagation()}>
             <div className="jump-sheet-header">
-              <div style={{ fontFamily: "Fredoka, sans-serif", fontWeight: 700, fontSize: 16, color: "var(--ink)" }}>
+              <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 16, color: "var(--ink)" }}>
                 {t.quiz.allQuestions}
               </div>
               <button className="jump-sheet-close" onClick={() => setShowJumpSheet(false)} aria-label={t.quiz.close}>

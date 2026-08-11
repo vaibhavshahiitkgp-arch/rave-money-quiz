@@ -23,7 +23,15 @@
   --dot-color: oklch(92% 0.01 85);
   --radius-lg: 28px;
 
-  font: 17px/1.5 Nunito, sans-serif;
+  /* Fredoka/Nunito don't ship Devanagari or Gujarati glyphs, so without
+     these fallbacks the browser silently substitutes a generic system font
+     for Hindi/Gujarati text -- it "works" but reads visibly cheaper than
+     the English screens. Noto Sans covers both scripts and sits in the
+     stack per-character, so Latin text still renders in Fredoka/Nunito. */
+  --font-heading: Fredoka, "Noto Sans Devanagari", "Noto Sans Gujarati", sans-serif;
+  --font-body: Nunito, "Noto Sans Devanagari", "Noto Sans Gujarati", sans-serif;
+
+  font: 17px/1.5 var(--font-body);
   color-scheme: light;
   color: var(--ink);
   background: var(--cream-outer);
@@ -55,7 +63,7 @@ body {
 h1,
 h2,
 h3 {
-  font-family: Fredoka, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 700;
   color: var(--ink);
   margin: 0;
@@ -198,7 +206,7 @@ a {
   width: 100%;
   padding: 17px 0;
   text-align: center;
-  font-family: Fredoka, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 700;
   font-size: 16px;
   border-radius: 18px;
@@ -236,7 +244,7 @@ a {
 .lang-pill {
   padding: 9px 16px;
   border-radius: 14px;
-  font-family: Fredoka, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 600;
   font-size: 13px;
   cursor: pointer;
@@ -278,7 +286,7 @@ a {
   background: none;
   border: none;
   padding: 2px 0;
-  font-family: Fredoka, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 700;
   font-size: 12.5px;
   color: var(--green);
@@ -339,7 +347,7 @@ a {
   border: 1.5px solid oklch(88% 0.008 85);
   background: #fff;
   color: var(--muted-soft);
-  font-family: Fredoka, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
@@ -369,7 +377,7 @@ a {
 }
 
 .question-text {
-  font-family: Fredoka, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 600;
   font-size: 16.5px;
   color: var(--ink);
@@ -409,7 +417,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Fredoka, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 700;
   font-size: 11.5px;
   background: oklch(93% 0.008 85);
@@ -423,7 +431,7 @@ a {
 }
 
 .option-text {
-  font-family: Nunito, sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 14.5px;
   color: var(--ink);
@@ -439,7 +447,7 @@ a {
   border-radius: 12px;
   border: 2px solid var(--terracotta);
   color: var(--terracotta-shadow);
-  font-family: Fredoka, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 700;
   font-size: 13px;
   cursor: pointer;
@@ -459,7 +467,7 @@ a {
   border-radius: 12px;
   border: 2px solid oklch(90% 0.008 85);
   font-size: 15px;
-  font-family: Nunito, sans-serif;
+  font-family: var(--font-body);
   color: var(--ink);
   outline: none;
   width: 100%;
@@ -525,7 +533,7 @@ a {
 
 .solution-row-label {
   flex: 1;
-  font-family: Nunito, sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 12.5px;
   color: oklch(30% 0.02 260);
@@ -544,7 +552,7 @@ a {
 }
 
 .solution-detail__q {
-  font-family: Fredoka, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 600;
   font-size: 13.5px;
   color: var(--ink);
@@ -589,21 +597,21 @@ a {
 }
 
 .score-card__tier {
-  font-family: Fredoka, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 700;
   font-size: 20px;
   color: var(--ink);
 }
 
 .score-card__score {
-  font-family: Fredoka, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 700;
   font-size: 32px;
   color: var(--green);
 }
 
 .score-card__challenge {
-  font-family: Nunito, sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 11px;
   color: var(--muted-soft);

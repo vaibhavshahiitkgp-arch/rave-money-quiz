@@ -24,7 +24,7 @@ export default function Solution() {
         <button className="back-link" onClick={() => navigate("/score")}>
           {t.solution.back}
         </button>
-        <div style={{ fontFamily: "Fredoka, sans-serif", fontSize: 19, fontWeight: 700, color: "var(--ink)" }}>{t.solution.title}</div>
+        <div style={{ fontFamily: "var(--font-heading)", fontSize: 19, fontWeight: 700, color: "var(--ink)" }}>{t.solution.title}</div>
         <div style={{ fontSize: 12.5, color: "var(--muted-soft)" }}>{t.solution.subtitle}</div>
       </div>
 
@@ -76,7 +76,7 @@ export default function Solution() {
             textAlign: "center",
           }}
         >
-          <div style={{ fontFamily: "Fredoka, sans-serif", fontWeight: 700, fontSize: 15, color: "var(--muted)" }}>{t.solution.nextTitle}</div>
+          <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 15, color: "var(--muted)" }}>{t.solution.nextTitle}</div>
           <button className="btn3d btn3d--outline" style={{ maxWidth: 280 }} onClick={() => navigate("/share")}>
             {t.solution.shareBtn}
           </button>

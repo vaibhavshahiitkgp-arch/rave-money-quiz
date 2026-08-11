@@ -31,7 +31,7 @@ export default function Landing() {
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, position: "relative", zIndex: 1 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <div style={{ width: 22, height: 26, background: "var(--green)", clipPath: "polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%)", display: "flex", alignItems: "flex-start", justifyContent: "center", paddingTop: 4, flexShrink: 0 }}>
-            <div style={{ color: "#fff", fontFamily: "Fredoka, sans-serif", fontWeight: 700, fontSize: 11 }}>R</div>
+            <div style={{ color: "#fff", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 11 }}>R</div>
           </div>
           <div style={{ fontSize: 13, letterSpacing: 1, color: "var(--ink)", fontWeight: 800 }}>{t.brand.name}</div>
         </div>
@@ -39,7 +39,7 @@ export default function Landing() {
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, position: "relative", zIndex: 1 }}>
-        <div className="anim-popIn" style={{ fontFamily: "Fredoka, sans-serif", fontSize: 27, fontWeight: 700, color: "var(--ink)", lineHeight: 1.2, textAlign: "center" }}>
+        <div className="anim-popIn" style={{ fontFamily: "var(--font-heading)", fontSize: 27, fontWeight: 700, color: "var(--ink)", lineHeight: 1.2, textAlign: "center" }}>
           {t.landing.titlePrefix}
           <span style={{ color: "oklch(45% 0.13 150)" }}>{t.landing.titleHighlight}</span>
           {t.landing.titleSuffix}
