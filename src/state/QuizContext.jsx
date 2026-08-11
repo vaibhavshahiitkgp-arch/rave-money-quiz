@@ -1,6 +1,8 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { DEFAULT_LANGUAGE } from "../data/languages";
 import { getQuestions } from "../data/index";
+import { getTier } from "../data/tiers";
+import { submitLead } from "../utils/api";
 
 const STORAGE_KEY = "rave-money-quiz-state-v1";
 
@@ -39,6 +41,7 @@ const QuizContext = createContext(null);
 
 export function QuizProvider({ children }) {
   const [state, setState] = useState(loadState);
+  const loggingRef = useRef(false);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -52,22 +55,6 @@ export function QuizProvider({ children }) {
 
   const setAnswer = useCallback((questionId, optionIndex) => {
     setState((s) => ({ ...s, answers: { ...s.answers, [questionId]: optionIndex } }));
-  }, []);
-
-  const submitQuiz = useCallback(() => {
-    setState((s) => ({ ...s, submitted: true }));
-  }, []);
-
-  const unlockDetailed = useCallback((contact) => {
-    setState((s) => ({ ...s, contact, detailedUnlocked: true }));
-  }, []);
-
-  const markScoreLogged = useCallback(() => {
-    setState((s) => ({ ...s, scoreLogged: true }));
-  }, []);
-
-  const resetQuiz = useCallback(() => {
-    setState((s) => ({ ...createInitialState(), language: s.language }));
   }, []);
 
   const score = useMemo(() => {
@@ -90,6 +77,44 @@ export function QuizProvider({ children }) {
     ],
     [questions, state.answers]
   );
+
+  // Log the completion the instant the quiz is submitted — not when the
+  // Score screen happens to render. Someone who finishes, sees the
+  // "Nice work" congratulations screen, and closes the tab without ever
+  // tapping through to "See My Score" still needs to show up in the Sheet.
+  const submitQuiz = useCallback(() => {
+    if (!loggingRef.current) {
+      loggingRef.current = true;
+      const total = questions.length;
+      const tierName = total > 0 ? getTier(score, total).name : "";
+      submitLead({
+        sessionId: state.sessionId,
+        name: "",
+        whatsapp: "",
+        language: state.language,
+        score,
+        total,
+        tier: tierName,
+        weakTopics,
+        answers: state.answers,
+        submittedAt: new Date().toISOString(),
+      });
+    }
+    setState((s) => ({ ...s, submitted: true, scoreLogged: true }));
+  }, [questions.length, score, weakTopics, state.sessionId, state.language, state.answers]);
+
+  const unlockDetailed = useCallback((contact) => {
+    setState((s) => ({ ...s, contact, detailedUnlocked: true }));
+  }, []);
+
+  const markScoreLogged = useCallback(() => {
+    setState((s) => ({ ...s, scoreLogged: true }));
+  }, []);
+
+  const resetQuiz = useCallback(() => {
+    loggingRef.current = false;
+    setState((s) => ({ ...createInitialState(), language: s.language }));
+  }, []);
 
   const value = {
     ...state,
