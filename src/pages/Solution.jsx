@@ -66,7 +66,7 @@ export default function Solution() {
 
         <div
           style={{
-            borderTop: "2px solid oklch(91% 0.008 85)",
+            borderTop: "1px solid oklch(90% 0.008 85 / 0.7)",
             marginTop: 8,
             paddingTop: 20,
             display: "flex",

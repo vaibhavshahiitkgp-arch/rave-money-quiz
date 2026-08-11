@@ -48,7 +48,7 @@ export default function Score() {
         alignItems: "center",
         justifyContent: "space-between",
         textAlign: "center",
-        background: "var(--green-tint)",
+        background: "var(--terracotta-tint)",
         minHeight: 620,
         position: "relative",
         overflow: "hidden",
@@ -73,7 +73,7 @@ export default function Score() {
         />
       ))}
 
-      <div style={{ fontSize: 12, letterSpacing: 1.5, color: "oklch(35% 0.06 150)", fontWeight: 700, textTransform: "uppercase", position: "relative", zIndex: 1 }}>
+      <div style={{ fontSize: 12, letterSpacing: 1.5, color: "var(--terracotta-shadow)", fontWeight: 700, textTransform: "uppercase", position: "relative", zIndex: 1 }}>
         {t.score.yourResult}
       </div>
 
@@ -85,16 +85,16 @@ export default function Score() {
             width: 172,
             height: 172,
             borderRadius: "50%",
-            background: `conic-gradient(oklch(58% 0.14 45) 0%, oklch(58% 0.14 45) ${pct}%, oklch(87% 0.03 150) ${pct}%, oklch(87% 0.03 150) 100%)`,
+            background: `conic-gradient(oklch(58% 0.14 45) 0%, oklch(58% 0.14 45) ${pct}%, oklch(90% 0.015 70) ${pct}%, oklch(90% 0.015 70) 100%)`,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
           }}
         >
-          <div style={{ width: 138, height: 138, borderRadius: "50%", background: "var(--green-tint)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div style={{ width: 138, height: 138, borderRadius: "50%", background: "var(--terracotta-tint)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <Mascot size={74} ribbonColor={tier.ribbon} mouth={mouth} sparkle={tier.name === "Money Master"} dashedRing />
           </div>
-          <div style={{ position: "absolute", bottom: -4, background: "var(--green-tint)", padding: "3px 14px", borderRadius: 12, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 18, color: "var(--ink)" }}>
+          <div style={{ position: "absolute", bottom: -4, background: "var(--terracotta-tint)", padding: "3px 14px", borderRadius: 12, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 18, color: "var(--ink)" }}>
             {score}/{total}
           </div>
         </div>
@@ -116,7 +116,7 @@ export default function Score() {
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, position: "relative", zIndex: 1 }}>
         <button
           onClick={() => navigate("/course")}
-          style={{ background: "none", border: "none", cursor: "pointer", fontSize: 12.5, fontWeight: 700, color: "oklch(35% 0.06 150)", textDecoration: "underline" }}
+          style={{ background: "none", border: "none", cursor: "pointer", fontSize: 12.5, fontWeight: 700, color: "var(--terracotta-shadow)", textDecoration: "underline" }}
         >
           {t.score.courseTeaser}
         </button>

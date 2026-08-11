@@ -24,7 +24,7 @@ export default function PostSubmit() {
         alignItems: "center",
         justifyContent: "space-between",
         textAlign: "center",
-        background: "var(--green-tint)",
+        background: "var(--terracotta-tint)",
         minHeight: 460,
         position: "relative",
         overflow: "hidden",

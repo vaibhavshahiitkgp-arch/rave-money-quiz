@@ -51,7 +51,7 @@ export default function Quiz() {
 
   return (
     <div className="card-shell">
-      <div style={{ padding: "18px 22px 12px", display: "flex", flexDirection: "column", gap: 9, borderBottom: "2px solid oklch(91% 0.008 85)" }}>
+      <div style={{ padding: "18px 22px 12px", display: "flex", flexDirection: "column", gap: 9, boxShadow: "0 4px 10px -6px rgba(0, 0, 0, 0.14)", position: "relative", zIndex: 1 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: 13, color: "var(--muted)" }}>
             {t.quiz.questionOf(index + 1, total)}
@@ -118,7 +118,7 @@ export default function Quiz() {
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 10, padding: "14px 22px 22px", borderTop: "2px solid oklch(91% 0.008 85)" }}>
+      <div style={{ display: "flex", gap: 10, padding: "14px 22px 22px", boxShadow: "0 -4px 10px -6px rgba(0, 0, 0, 0.14)" }}>
         <button
           className={`btn3d ${index === 0 ? "btn3d--outline btn-disabled" : "btn3d--outline"}`}
           style={{ flex: 1 }}

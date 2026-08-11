@@ -20,7 +20,7 @@ export default function Instructions() {
           </div>
           <Mascot size={44} mouth="smile" />
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 12, background: "var(--green-tint)", borderRadius: 20, padding: 18 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 12, background: "var(--terracotta-tint)", borderRadius: 20, padding: 18 }}>
           {t.instructions.rules.map((text, i) => (
             <div key={i} className="anim-slideUp" style={{ animationDelay: `${0.05 + i * 0.07}s`, display: "flex", gap: 13, alignItems: "flex-start" }}>
               <div
@@ -28,7 +28,7 @@ export default function Instructions() {
                   width: 32,
                   height: 32,
                   borderRadius: "50%",
-                  background: i % 2 === 0 ? "var(--green)" : "var(--terracotta)",
+                  background: i % 2 === 0 ? "var(--terracotta)" : "var(--gold-rim)",
                   flexShrink: 0,
                   display: "flex",
                   alignItems: "center",
