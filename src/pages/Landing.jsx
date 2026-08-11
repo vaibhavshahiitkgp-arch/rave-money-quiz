@@ -38,13 +38,13 @@ export default function Landing() {
         <div style={{ fontSize: 10.5, color: "var(--muted-soft)", fontWeight: 600 }}>{t.brand.tagline}</div>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, position: "relative", zIndex: 1 }}>
-        <div className="anim-popIn" style={{ fontFamily: "var(--font-heading)", fontSize: 27, fontWeight: 700, color: "var(--ink)", lineHeight: 1.2, textAlign: "center" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, position: "relative", zIndex: 1 }}>
+        <Mascot size={148} pose="wave" animate className="anim-popIn" style={{ filter: "drop-shadow(0 10px 8px rgba(0,0,0,.15))" }} />
+        <div style={{ fontFamily: "var(--font-heading)", fontSize: 27, fontWeight: 700, color: "var(--ink)", lineHeight: 1.2, textAlign: "center" }}>
           {t.landing.titlePrefix}
           <span style={{ color: "oklch(45% 0.13 150)" }}>{t.landing.titleHighlight}</span>
           {t.landing.titleSuffix}
         </div>
-        <Mascot size={82} animate style={{ filter: "drop-shadow(0 10px 8px rgba(0,0,0,.15))" }} />
         <div className="anim-slideUp" style={{ animationDelay: "0.15s", fontWeight: 700, fontSize: 14, color: "var(--muted)", maxWidth: 270, lineHeight: 1.5, textAlign: "center" }}>
           {t.landing.subtitle}
         </div>

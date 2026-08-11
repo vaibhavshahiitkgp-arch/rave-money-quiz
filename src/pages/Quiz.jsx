@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getStrings } from "../data/strings";
 import { useQuiz } from "../state/QuizContext";
+import Mascot from "../components/Mascot";
 
 const LETTERS = ["A", "B", "C", "D"];
 
@@ -100,7 +101,8 @@ export default function Quiz() {
       )}
 
       <div style={{ flex: 1, overflowY: "auto", padding: "20px 22px 8px", display: "flex", flexDirection: "column", gap: 16 }}>
-        <div key={question.id} className="question-card anim-popIn">
+        <div key={question.id} className="question-card anim-popIn" style={{ position: "relative" }}>
+          <Mascot size={40} pose="think" mouth="neutral" style={{ position: "absolute", top: -16, right: 10 }} />
           <div className="question-text">{question.text}</div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>

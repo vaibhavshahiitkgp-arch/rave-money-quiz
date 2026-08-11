@@ -90,9 +90,14 @@ a {
   100% { transform: scale(1) rotate(0deg); opacity: 1; }
 }
 
-@keyframes bob {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.035); }
+}
+
+@keyframes blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.15); }
 }
 
 @keyframes slideUp {
@@ -128,7 +133,6 @@ a {
 
 .anim-popIn { animation: popIn 0.6s ease both; }
 .anim-slideUp { animation: slideUp 0.5s ease both; }
-.anim-bob { animation: bob 2.6s ease-in-out infinite; }
 
 /* ---------- card shell ---------- */
 

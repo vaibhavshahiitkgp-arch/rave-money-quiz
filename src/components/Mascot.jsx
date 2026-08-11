@@ -1,17 +1,43 @@
 // Coin-medal mascot, built from plain divs (no images/SVG), matching the
 // approved design prototype. Canonical canvas is 100x120; `size` scales it.
+//
+// `pose` adds a pair of arm capsules (same gold-fill/rim-border material as
+// the coin itself, so every pose still reads as "the same character") plus,
+// for "envelope", a small held envelope shape. Arms render behind the coin
+// so they look attached at the shoulder rather than pasted on top of it.
+const ARM_STYLE = {
+  position: "absolute",
+  width: 15,
+  height: 36,
+  borderRadius: 8,
+  background: "#E3B23C",
+  border: "3px solid #B8860B",
+};
+
+const POSES = {
+  wave: [{ ...ARM_STYLE, top: 22, left: 75, transformOrigin: "50% 10%", transform: "rotate(-35deg)" }],
+  think: [{ ...ARM_STYLE, top: 36, left: 6, height: 34, transformOrigin: "50% 90%", transform: "rotate(55deg)" }],
+  celebrate: [
+    { ...ARM_STYLE, top: 12, left: 77, transformOrigin: "50% 95%", transform: "rotate(-15deg)" },
+    { ...ARM_STYLE, top: 12, left: 8, transformOrigin: "50% 95%", transform: "rotate(15deg)" },
+  ],
+  envelope: [{ ...ARM_STYLE, top: 32, left: 73, height: 30, transformOrigin: "50% 10%", transform: "rotate(65deg)" }],
+};
+
 export default function Mascot({
   size = 82,
   ribbonColor = "#1F3864",
   mouth = "smile", // "smile" | "neutral"
+  pose, // undefined | "wave" | "think" | "celebrate" | "envelope"
   sparkle = false,
   dashedRing = false,
-  animate = false,
+  animate = false, // idle loop: gentle breathing scale + periodic blink
   className = "",
   style = {},
 }) {
   const scale = size / 100;
   const height = size * 1.2;
+  const arms = POSES[pose] || [];
 
   return (
     <div
@@ -20,7 +46,7 @@ export default function Mascot({
         width: size,
         height,
         position: "relative",
-        animation: animate ? "bob 2.6s ease-in-out infinite" : undefined,
+        animation: animate ? "breathe 4.2s ease-in-out infinite" : undefined,
         ...style,
       }}
     >
@@ -57,6 +83,9 @@ export default function Mascot({
             clipPath: "polygon(0 0, 100% 0, 100% 100%, 50% 75%, 0 100%)",
           }}
         />
+        {arms.map((armStyle, i) => (
+          <div key={i} style={armStyle} />
+        ))}
         <div
           style={{
             position: "absolute",
@@ -91,6 +120,7 @@ export default function Mascot({
             height: 11,
             borderRadius: "50%",
             background: "#1F3864",
+            animation: animate ? "blink 4.5s ease-in-out infinite" : undefined,
           }}
         />
         <div
@@ -102,6 +132,7 @@ export default function Mascot({
             height: 11,
             borderRadius: "50%",
             background: "#1F3864",
+            animation: animate ? "blink 4.5s ease-in-out infinite" : undefined,
           }}
         />
         {mouth === "smile" ? (
@@ -153,6 +184,34 @@ export default function Mascot({
                 borderRadius: 2,
                 background: "#E3B23C",
                 transform: "rotate(-45deg)",
+              }}
+            />
+          </>
+        )}
+        {pose === "envelope" && (
+          <>
+            <div
+              style={{
+                position: "absolute",
+                top: 68,
+                left: 34,
+                width: 32,
+                height: 22,
+                background: "#FFF8E0",
+                border: "2px solid #B8860B",
+                borderRadius: 3,
+              }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                top: 68,
+                left: 34,
+                width: 0,
+                height: 0,
+                borderLeft: "16px solid transparent",
+                borderRight: "16px solid transparent",
+                borderTop: "12px solid #E3B23C",
               }}
             />
           </>
