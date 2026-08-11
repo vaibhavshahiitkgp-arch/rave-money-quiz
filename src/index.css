@@ -126,11 +126,6 @@ a {
   100% { transform: scale(1) rotate(0deg); opacity: 1; }
 }
 
-@keyframes pageEnter {
-  0% { opacity: 0; transform: translateY(16px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
 .anim-popIn { animation: popIn 0.6s ease both; }
 .anim-slideUp { animation: slideUp 0.5s ease both; }
 
@@ -150,11 +145,19 @@ a {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
   display: flex;
   flex-direction: column;
-  /* Every screen is a distinct React Router route, so this fires once per
-     navigation (mount), not on internal state changes -- the one thing
-     missing before: individual elements faded in, but the screen itself
-     just snapped into place with no felt transition between screens. */
-  animation: pageEnter 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Wraps the router outlet -- Framer Motion's AnimatePresence (in App.jsx)
+   slides the outgoing screen out while the incoming one slides in, using
+   this as the positioned ancestor for the exiting screen's popLayout
+   absolute-positioning. Mirrors .card-shell's own sizing (100% width,
+   420px cap) so it takes the same footprint the card used to occupy
+   directly under #root. */
+.route-transition-frame {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 420px;
 }
 
 /* ---------- decorative backgrounds ---------- */
