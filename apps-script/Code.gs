@@ -26,7 +26,39 @@
  * course-interest flag) never blanks out a name or score written earlier.
  * Matching by sessionId rather than row number also means manually deleting
  * or sorting rows in the Sheet never corrupts a later update.
+ *
+ * QUESTION_META below mirrors src/data/questions.en.js's id/correctIndex/
+ * topic fields (identical across all 3 languages by design) — it's what
+ * lets this script turn a raw {"1":2,"2":3,...} answers object into
+ * human-readable letters and a "Topic (Q1, Q5)" weak-topics breakdown,
+ * without the frontend needing to send anything extra. If the question
+ * bank's correct answers or topics ever change, update this table to match.
  */
+
+const QUESTION_META = {
+  1: { correctIndex: 2, topic: "Bonds & Lending" },
+  2: { correctIndex: 3, topic: "Gold & Jewellery" },
+  3: { correctIndex: 0, topic: "Stock Market Basics" },
+  4: { correctIndex: 0, topic: "Diversification" },
+  5: { correctIndex: 3, topic: "Investment Horizon" },
+  6: { correctIndex: 1, topic: "Time Value of Money" },
+  7: { correctIndex: 1, topic: "Credit Cards" },
+  8: { correctIndex: 2, topic: "Dividends & Reinvestment" },
+  9: { correctIndex: 3, topic: "Insurance" },
+  10: { correctIndex: 1, topic: "Net Worth" },
+  11: { correctIndex: 2, topic: "Budgeting" },
+  12: { correctIndex: 2, topic: "Mutual Funds (NAV)" },
+  13: { correctIndex: 1, topic: "Compounding" },
+  14: { correctIndex: 1, topic: "Market Risk" },
+  15: { correctIndex: 0, topic: "Compounding" },
+  16: { correctIndex: 3, topic: "Digital Payments & Fraud" },
+  17: { correctIndex: 2, topic: "Real Estate" },
+  18: { correctIndex: 0, topic: "Loans & Guarantors" },
+  19: { correctIndex: 3, topic: "Credit Score" },
+  20: { correctIndex: 3, topic: "Credit Cards" },
+};
+
+const OPTION_LETTERS = ["A", "B", "C", "D"];
 
 const HEADERS = [
   "Timestamp",
@@ -36,8 +68,8 @@ const HEADERS = [
   "Score",
   "Total",
   "Tier",
-  "Weak Topics",
-  "Answers JSON",
+  "Weak Topics (by Question)",
+  "Answers (A-D)",
   "Course Interest",
   "Session ID",
 ];
@@ -55,6 +87,37 @@ const COL = {
   COURSE_INTEREST: 10,
   SESSION_ID: 11,
 };
+
+// {"1":2,"2":0,...} -> {"1":"C","2":"A",...}
+function answersToLetters(answers) {
+  const out = {};
+  Object.keys(answers || {}).forEach((qid) => {
+    const idx = answers[qid];
+    if (typeof idx === "number" && idx >= 0 && idx < OPTION_LETTERS.length) {
+      out[qid] = OPTION_LETTERS[idx];
+    }
+  });
+  return out;
+}
+
+// {"1":2,"13":3,...} -> "Bonds & Lending (Q1), Compounding (Q13, Q15)"
+// A question counts as wrong if unanswered or not equal to its correctIndex.
+function weakTopicsDetailedFromAnswers(answers) {
+  const byTopic = {};
+  const order = [];
+  Object.keys(QUESTION_META).forEach((qid) => {
+    const meta = QUESTION_META[qid];
+    const chosen = (answers || {})[qid];
+    if (chosen !== meta.correctIndex) {
+      if (!byTopic[meta.topic]) {
+        byTopic[meta.topic] = [];
+        order.push(meta.topic);
+      }
+      byTopic[meta.topic].push("Q" + qid);
+    }
+  });
+  return order.map((topic) => `${topic} (${byTopic[topic].join(", ")})`).join(", ");
+}
 
 function doPost(e) {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
@@ -83,8 +146,8 @@ function appendNewRow(sheet, data) {
   row[COL.SCORE - 1] = data.score ?? "";
   row[COL.TOTAL - 1] = data.total ?? "";
   row[COL.TIER - 1] = data.tier || "";
-  row[COL.WEAK_TOPICS - 1] = (data.weakTopics || []).join(", ");
-  row[COL.ANSWERS_JSON - 1] = data.answers ? JSON.stringify(data.answers) : "";
+  row[COL.WEAK_TOPICS - 1] = data.answers ? weakTopicsDetailedFromAnswers(data.answers) : "";
+  row[COL.ANSWERS_JSON - 1] = data.answers ? JSON.stringify(answersToLetters(data.answers)) : "";
   row[COL.COURSE_INTEREST - 1] = data.courseInterest || "";
   row[COL.SESSION_ID - 1] = data.sessionId || "";
   sheet.appendRow(row);
@@ -105,8 +168,8 @@ function updateRow(sheet, rowIndex, data) {
     current[COL.SCORE - 1] = data.score;
     current[COL.TOTAL - 1] = data.total ?? "";
     current[COL.TIER - 1] = data.tier || "";
-    current[COL.WEAK_TOPICS - 1] = (data.weakTopics || []).join(", ");
-    current[COL.ANSWERS_JSON - 1] = data.answers ? JSON.stringify(data.answers) : "";
+    current[COL.WEAK_TOPICS - 1] = data.answers ? weakTopicsDetailedFromAnswers(data.answers) : "";
+    current[COL.ANSWERS_JSON - 1] = data.answers ? JSON.stringify(answersToLetters(data.answers)) : "";
   }
   if (data.courseInterest) current[COL.COURSE_INTEREST - 1] = data.courseInterest;
 
@@ -137,4 +200,54 @@ function findRowBySessionId(sheet, sessionId) {
     if (values[i][0] === sessionId) return i + 2; // +2: 1-indexed, header row offset
   }
   return -1;
+}
+
+/**
+ * ONE-TIME MIGRATION — run this manually once (Apps Script editor: select
+ * "migrateExistingRows" from the function dropdown at the top, click Run)
+ * to convert every existing row's "Answers JSON" from raw 0-3 indices to
+ * A-D letters, and rebuild "Weak Topics" with per-question numbers. Safe
+ * to re-run — rows already in the new format (letter values) are skipped.
+ */
+function migrateExistingRows() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+  const lastRow = sheet.getLastRow();
+  if (lastRow < 2) {
+    Logger.log("No data rows to migrate.");
+    return;
+  }
+
+  sheet.getRange(1, COL.WEAK_TOPICS).setValue(HEADERS[COL.WEAK_TOPICS - 1]);
+  sheet.getRange(1, COL.ANSWERS_JSON).setValue(HEADERS[COL.ANSWERS_JSON - 1]);
+
+  const range = sheet.getRange(2, 1, lastRow - 1, HEADERS.length);
+  const values = range.getValues();
+  let migrated = 0;
+  let skipped = 0;
+
+  for (let i = 0; i < values.length; i++) {
+    const cell = values[i][COL.ANSWERS_JSON - 1];
+    if (!cell) {
+      skipped++;
+      continue;
+    }
+    let answers;
+    try {
+      answers = JSON.parse(cell);
+    } catch (err) {
+      skipped++;
+      continue;
+    }
+    const firstValue = Object.values(answers)[0];
+    if (typeof firstValue === "string") {
+      skipped++; // already migrated (letters, not numbers)
+      continue;
+    }
+    values[i][COL.ANSWERS_JSON - 1] = JSON.stringify(answersToLetters(answers));
+    values[i][COL.WEAK_TOPICS - 1] = weakTopicsDetailedFromAnswers(answers);
+    migrated++;
+  }
+
+  range.setValues(values);
+  Logger.log("Migration complete: " + migrated + " rows converted, " + skipped + " skipped (already migrated or blank).");
 }
