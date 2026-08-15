@@ -52,6 +52,16 @@ export default function CourseCTA() {
 
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         <a
+          href="/brochure.pdf"
+          download
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn3d btn3d--outline"
+          onClick={() => trackInterest("brochure")}
+        >
+          {t.course.downloadBrochure}
+        </a>
+        <a
           href={buildWhatsAppLink(enquiryMessage)}
           target="_blank"
           rel="noopener noreferrer"
