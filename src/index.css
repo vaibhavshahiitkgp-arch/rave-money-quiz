@@ -547,6 +547,42 @@ a {
 .solution-badge--incorrect { background: var(--error); }
 .solution-badge--unanswered { background: oklch(75% 0.01 85); }
 
+/* ---------- solution grid (replaces the 20-row accordion) ---------- */
+
+.solution-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.solution-circle {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 13px;
+  color: #fff;
+  transition: transform 0.12s ease, box-shadow 0.15s ease;
+}
+
+.solution-circle:active {
+  transform: scale(0.92);
+}
+
+.solution-circle--correct { background: var(--green); }
+.solution-circle--incorrect { background: var(--error); }
+.solution-circle--unanswered { background: oklch(75% 0.01 85); color: oklch(40% 0.01 85); }
+
+.solution-circle--selected {
+  box-shadow: 0 0 0 3px var(--gold-accent);
+}
+
 .solution-row-label {
   flex: 1;
   font-family: var(--font-body);
