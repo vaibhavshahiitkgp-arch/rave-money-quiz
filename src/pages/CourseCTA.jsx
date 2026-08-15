@@ -1,13 +1,17 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuiz } from "../state/QuizContext";
 import { getStrings } from "../data/strings";
 import { joinTopicsWithAnd } from "../data/topics";
+import { LANGUAGES } from "../data/languages";
+import { COURSE_VIDEO_LINKS } from "../data/courseVideo";
 import { RAVE_EMAIL, buildCourseEnquiryMessage, buildWhatsAppLink } from "../utils/whatsapp";
 import { submitLead } from "../utils/api";
 
 export default function CourseCTA() {
   const navigate = useNavigate();
   const { language, weakTopics, score, total, contact, sessionId, submitted } = useQuiz();
+  const [showVideoLangs, setShowVideoLangs] = useState(false);
   const t = getStrings(language);
 
   const topTopics = weakTopics.slice(0, 3);
@@ -20,6 +24,8 @@ export default function CourseCTA() {
     total,
     weakTopicsJoined: topicsJoined,
   });
+
+  const availableVideoLangs = LANGUAGES.filter((l) => COURSE_VIDEO_LINKS[l.code]);
 
   function trackInterest(channel) {
     if (!sessionId) return;
@@ -40,13 +46,6 @@ export default function CourseCTA() {
           <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 15, color: "var(--ink)" }}>Investing as a Life Skill</div>
           <div style={{ fontSize: 12.5, color: "var(--muted-soft)" }}>{t.course.courseDesc}</div>
           <div style={{ fontSize: 13, color: "var(--terracotta-shadow)", fontWeight: 700, lineHeight: 1.5 }}>{intro}</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 4 }}>
-            {t.course.bullets.map((b, i) => (
-              <div key={i} style={{ fontSize: 13, color: "oklch(35% 0.02 260)" }}>
-                • {b}
-              </div>
-            ))}
-          </div>
         </div>
       </div>
 
@@ -56,11 +55,46 @@ export default function CourseCTA() {
           download
           target="_blank"
           rel="noopener noreferrer"
-          className="btn3d btn3d--outline"
+          className="btn3d"
+          style={{ background: "var(--terracotta)", boxShadow: "0 4px 0 var(--terracotta-shadow)" }}
           onClick={() => trackInterest("brochure")}
         >
           {t.course.downloadBrochure}
         </a>
+
+        {availableVideoLangs.length > 0 && (
+          <>
+            <button
+              type="button"
+              className="btn3d"
+              style={{ background: "oklch(48% 0.14 70)", boxShadow: "0 4px 0 oklch(40% 0.13 70)" }}
+              onClick={() => setShowVideoLangs((s) => !s)}
+            >
+              {t.course.watchVideo}
+            </button>
+            {showVideoLangs && (
+              <div style={{ display: "flex", flexDirection: "column", gap: 6, padding: "2px 4px 4px" }}>
+                <div style={{ fontSize: 11.5, color: "var(--muted-soft)", fontWeight: 700, textAlign: "center" }}>{t.course.chooseVideoLanguage}</div>
+                <div style={{ display: "flex", gap: 8 }}>
+                  {availableVideoLangs.map((l) => (
+                    <a
+                      key={l.code}
+                      href={COURSE_VIDEO_LINKS[l.code]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn3d btn3d--outline"
+                      style={{ flex: 1, padding: "10px 0", fontSize: 13, borderColor: "oklch(48% 0.14 70)", color: "oklch(40% 0.13 70)" }}
+                      onClick={() => trackInterest(`video-${l.code}`)}
+                    >
+                      {l.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
+        )}
+
         <a
           href={buildWhatsAppLink(enquiryMessage)}
           target="_blank"
@@ -73,7 +107,8 @@ export default function CourseCTA() {
         </a>
         <a
           href={`mailto:${RAVE_EMAIL}?subject=Investing%20as%20a%20Life%20Skill&body=${encodeURIComponent(enquiryMessage)}`}
-          className="btn3d btn3d--outline"
+          className="btn3d"
+          style={{ background: "var(--navy)", boxShadow: "0 4px 0 #14284a" }}
           onClick={() => trackInterest("email")}
         >
           {t.course.enquireEmail}

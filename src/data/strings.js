@@ -56,9 +56,8 @@ export const STRINGS = {
     },
     score: {
       yourResult: "Your Result",
-      continue: "Continue",
-      courseTeaser: "Want a plan to actually improve? Explore our course →",
-      retake: "Retake the quiz",
+      checkSolutions: "Check the Solutions",
+      retake: "Retake the Quiz",
     },
     solutionGate: {
       title: "Your result is ready",
@@ -104,6 +103,8 @@ export const STRINGS = {
         "Weeks 10–12: Retirement planning, spotting your own biases & your final portfolio review",
       ],
       downloadBrochure: "Download the Brochure (PDF)",
+      watchVideo: "Watch a Video",
+      chooseVideoLanguage: "Choose a language",
       enquireWhatsapp: "Enquire on WhatsApp",
       enquireEmail: "Enquire via Email",
       back: "‹ Back",
@@ -156,8 +157,7 @@ export const STRINGS = {
     },
     score: {
       yourResult: "आपका परिणाम",
-      continue: "आगे बढ़ें",
-      courseTeaser: "सुधार की सही योजना चाहिए? हमारा कोर्स देखें →",
+      checkSolutions: "समाधान देखें",
       retake: "क्विज़ फिर से लें",
     },
     solutionGate: {
@@ -204,6 +204,8 @@ export const STRINGS = {
         "सप्ताह 10–12: रिटायरमेंट की योजना, अपनी खुद की सोच की गलतियाँ पहचानना, और आपकी आखिरी पोर्टफोलियो समीक्षा",
       ],
       downloadBrochure: "ब्रोशर डाउनलोड करें (PDF)",
+      watchVideo: "वीडियो देखें",
+      chooseVideoLanguage: "भाषा चुनें",
       enquireWhatsapp: "व्हाट्सएप पर पूछताछ करें",
       enquireEmail: "ईमेल से पूछताछ करें",
       back: "‹ पीछे",
@@ -256,8 +258,7 @@ export const STRINGS = {
     },
     score: {
       yourResult: "તમારું પરિણામ",
-      continue: "આગળ વધો",
-      courseTeaser: "સુધારાની ખરી યોજના જોઈએ? અમારો કોર્સ જુઓ →",
+      checkSolutions: "ઉકેલ જુઓ",
       retake: "ક્વિઝ ફરીથી લો",
     },
     solutionGate: {
@@ -304,6 +305,8 @@ export const STRINGS = {
         "અઠવાડિયું 10–12: નિવૃત્તિની યોજના, તમારી પોતાની વિચારસરણીની ભૂલો ઓળખવી, અને તમારી અંતિમ પોર્ટફોલિયો સમીક્ષા",
       ],
       downloadBrochure: "બ્રોશર ડાઉનલોડ કરો (PDF)",
+      watchVideo: "વિડિયો જુઓ",
+      chooseVideoLanguage: "ભાષા પસંદ કરો",
       enquireWhatsapp: "વોટ્સએપ પર પૂછપરછ કરો",
       enquireEmail: "ઈમેલથી પૂછપરછ કરો",
       back: "‹ પાછળ",

@@ -117,21 +117,11 @@ export default function Score() {
         </div>
       </div>
 
-      <button className="btn3d btn3d--green" style={{ position: "relative", zIndex: 1 }} onClick={() => navigate("/solution")}>
-        {t.score.continue}
-      </button>
-
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, position: "relative", zIndex: 1 }}>
-        <button
-          onClick={() => navigate("/course")}
-          style={{ background: "none", border: "none", cursor: "pointer", fontSize: 12.5, fontWeight: 700, color: "var(--terracotta-shadow)", textDecoration: "underline" }}
-        >
-          {t.score.courseTeaser}
+      <div style={{ display: "flex", flexDirection: "column", gap: 10, width: "100%", position: "relative", zIndex: 1 }}>
+        <button className="btn3d btn3d--green" onClick={() => navigate("/solution")}>
+          {t.score.checkSolutions}
         </button>
-        <button
-          onClick={handleRetake}
-          style={{ background: "none", border: "none", cursor: "pointer", fontSize: 11.5, color: "oklch(45% 0.04 150)" }}
-        >
+        <button className="btn3d btn3d--outline" onClick={handleRetake}>
           {t.score.retake}
         </button>
       </div>
