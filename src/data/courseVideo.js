@@ -4,7 +4,7 @@
 // so this can be completed one language at a time without a code change
 // anywhere else.
 export const COURSE_VIDEO_LINKS = {
-  en: "",
-  hi: "",
-  gu: "",
+  en: "https://vimeo.com/1218534805?fl=ip&fe=ec",
+  hi: "https://vimeo.com/1218535184?fl=ip&fe=ec",
+  gu: "https://vimeo.com/1218535273?fl=ip&fe=ec",
 };
