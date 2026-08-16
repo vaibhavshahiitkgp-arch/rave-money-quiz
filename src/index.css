@@ -244,9 +244,9 @@ a {
 .btn3d--green:active { box-shadow: 0 2px 0 var(--green-shadow); }
 
 .btn3d--outline {
-  background: transparent;
-  color: var(--muted);
-  border: 2px solid oklch(90% 0.008 85);
+  background: var(--terracotta-tint);
+  color: var(--terracotta-shadow);
+  border: none;
   box-shadow: none;
 }
 

@@ -83,7 +83,7 @@ export default function CourseCTA() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn3d btn3d--outline"
-                      style={{ flex: 1, padding: "10px 0", fontSize: 13, borderColor: "oklch(48% 0.14 70)", color: "oklch(40% 0.13 70)" }}
+                      style={{ flex: 1, padding: "10px 0", fontSize: 13, background: "oklch(93% 0.05 70)", color: "oklch(40% 0.13 70)" }}
                       onClick={() => trackInterest(`video-${l.code}`)}
                     >
                       {l.label}
